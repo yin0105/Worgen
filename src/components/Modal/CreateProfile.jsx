@@ -11,7 +11,7 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { FormLabel, InputAdornment } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Close, PriorityHigh } from "@material-ui/icons";
 
 import GridContainer from "../Grid/GridContainer.jsx";
 import GridItem from "../Grid/GridItem.jsx";
@@ -260,28 +260,28 @@ export default function CreateProfile(props) {
     const [lastNameVal, setLastNameVal] = useState("")
     const [passwordVal, setPasswordVal] = useState("")
 
-    const [ccName, setCCName] = useState("")
-    const [ccNumber, setCCNumber] = useState("")
-    const [ccExpMonth, setCCExpMonth] = useState("")
-    const [ccExpYear, setCCExpYear] = useState("")
-    const [ccCVV, setCCCVV] = useState("")
+    const [ccNameVal, setCCNameVal] = useState("")
+    const [ccNumberVal, setCCNumberVal] = useState("")
+    const [ccExpMonthVal, setCCExpMonthVal] = useState("")
+    const [ccExpYearVal, setCCExpYearVal] = useState("")
+    const [ccCVVVal, setCCCVVVal] = useState("")
 
-    const [ccBill1, setCCBill1] = useState("")
-    const [ccBill2, setCCBill2] = useState("")
-    const [ccBillCity, setCCBillCity] = useState("")
-    const [ccBillState, setCCBillState] = useState("")
-    const [ccBillCountry, setCCBillCountry] = useState("")
-    const [ccBillPostal, setCCBillPostal] = useState("")
-    const [ccBillPhone, setCCBillPhone] = useState("")
+    const [ccBill1Val, setCCBill1Val] = useState("")
+    const [ccBill2Val, setCCBill2Val] = useState("")
+    const [ccBillCityVal, setCCBillCityVal] = useState("")
+    const [ccBillStateVal, setCCBillStateVal] = useState("")
+    const [ccBillCountryVal, setCCBillCountryVal] = useState("")
+    const [ccBillPostalVal, setCCBillPostalVal] = useState("")
+    const [ccBillPhoneVal, setCCBillPhoneVal] = useState("")
 
-    const [shippingName, setShippingName] = useState("")
-    const [shipping1, setShipping1] = useState("")
-    const [shipping2, setShipping2] = useState("")
-    const [shippingCity, setShippingCity] = useState("")
-    const [shippingState, setShippingState] = useState("")
-    const [shippingCountry, setShippingCountry] = useState("")
-    const [shippingPostal, setShippingPostal] = useState("")
-    const [shippingPhone, setShippingPhone] = useState("")
+    const [shippingNameVal, setShippingNameVal] = useState("")
+    const [shipping1Val, setShipping1Val] = useState("")
+    const [shipping2Val, setShipping2Val] = useState("")
+    const [shippingCityVal, setShippingCityVal] = useState("")
+    const [shippingStateVal, setShippingStateVal] = useState("")
+    const [shippingCountryVal, setShippingCountryVal] = useState("")
+    const [shippingPostalVal, setShippingPostalVal] = useState("")
+    const [shippingPhoneVal, setShippingPhoneVal] = useState("")
 
     const profile = useSelector((state) => state.profile)
 
@@ -407,8 +407,8 @@ export default function CreateProfile(props) {
                 <GridContainer>
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={ccName}
-                      error={!ccName}
+                      success={ccNameVal}
+                      error={!ccNameVal}
                       id="cc_name"
                       labelText="Full Name on Credit Card"
                       formControlProps={{
@@ -417,16 +417,19 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 3 characters and be less than 36` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCName(change(event, "CC Name", "length", 0, 3, 36)),
+                        onChange: event => {
+                          setCCNameVal(change(event, "CC Name", "length", 0, 3, 36)),
+                          dispatch(allActions.profileActions.setInfo("ccName", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccName
                       }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={ccNumber}
-                      error={!ccNumber}
+                      success={ccNumberVal}
+                      error={!ccNumberVal}
                       id="cc_number"
                       labelText="Credit Card Number"
                       formControlProps={{
@@ -435,57 +438,69 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 14 characters and be less than 19` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCNumber(change(event, "CC Number", "length", 0, 14, 19)),
+                        onChange: event => {
+                          setCCNumberVal(change(event, "CC Number", "length", 0, 14, 19)),
+                          dispatch(allActions.profileActions.setInfo("ccNumber", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccNumber
                       }}
                     />
                   </GridItem>
                   <GridItem xs={5} sm={5}>
                     <CustomInput
-                      success={ccExpMonth}
-                      error={!ccExpMonth}
+                      success={ccExpMonthVal}
+                      error={!ccExpMonthVal}
                       id="cc_exp_month"
                       labelText="CC Expiration Month"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event =>
-                          setCCExpMonth(change(event, "CC Expiration Month", "length", 0 , 1, 2)),
-                        type: "text"
+                        onChange: event => {
+                          setCCExpMonthVal(change(event, "CC Expiration Month", "length", 0 , 1, 2)),
+                          dispatch(allActions.profileActions.setInfo("ccExpMonth", event.target.value))
+                        },
+                        type: "text",
+                        value: profile.ccExpMonth
                       }}
                     />
                   </GridItem>
                   <GridItem xs={5} sm={5}>
                     <CustomInput
-                      success={ccExpYear}
-                      error={!ccExpYear}
+                      success={ccExpYearVal}
+                      error={!ccExpYearVal}
                       id="cc_exp_year"
                       labelText="CC Expiration Year"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event =>
-                          setCCExpYear(change(event, "CC Expiration Year", "length", 0 , 4, 4)),
-                        type: "text"
+                        onChange: event => {
+                          setCCExpYearVal(change(event, "CC Expiration Year", "length", 0 , 4, 4)),
+                          dispatch(allActions.profileActions.setInfo("ccExpYear", event.target.value))
+                        },
+                        type: "text",
+                        value: profile.ccExpYear
                       }}
                     />
                   </GridItem>
                   <GridItem xs={2} sm={2}>
                     <CustomInput
-                      success={ccCVV}
-                      error={!ccCVV}
+                      success={ccCVVVal}
+                      error={!ccCVVVal}
                       id="cc_cvv"
                       labelText="CC CVV"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event =>
-                          setCCCVV(change(event, "CC CVV", "length", 0 , 3, 4)),
-                        type: "text"
+                        onChange: event => {
+                          setCCCVVVal(change(event, "CC CVV", "length", 0 , 3, 4)),
+                          dispatch(allActions.profileActions.setInfo("ccCVV", event.target.value))
+                        },
+                        type: "text",
+                        value: profile.ccCVV
                       }}
                     />
                   </GridItem>
@@ -498,8 +513,8 @@ export default function CreateProfile(props) {
                 <GridContainer>
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={ccBill1}
-                      error={!ccBill1}
+                      success={ccBill1Val}
+                      error={!ccBill1Val}
                       id="cc_bill_1"
                       labelText="Address Line 1"
                       formControlProps={{
@@ -508,17 +523,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 6 characters and be less than 48` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBill1(change(event, "CC Bill 1", "length", 0, 6, 48)),
+                        onChange: event => {
+                          setCCBill1Val(change(event, "CC Bill 1", "length", 0, 6, 48)),
+                          dispatch(allActions.profileActions.setInfo("ccBill1", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccBill1
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={ccBill2}
-                      error={!ccBill2}
+                      success={ccBill2Val}
+                      error={!ccBill2Val}
                       id="cc_bill_2"
                       labelText="Address Line 2"
                       formControlProps={{
@@ -527,17 +545,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 0 characters and be less than 48` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBill2(change(event, "CC Bill 2", "length", 0, 0, 48)),
+                        onChange: event => {
+                          setCCBill2Val(change(event, "CC Bill 2", "length", 0, 0, 48)),
+                          dispatch(allActions.profileActions.setInfo("ccBill2", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccBill2
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={6} sm={6}>
                     <CustomInput
-                      success={ccBillCity}
-                      error={!ccBillCity}
+                      success={ccBillCityVal}
+                      error={!ccBillCityVal}
                       id="cc_bill_city"
                       labelText="Billing City"
                       formControlProps={{
@@ -546,17 +567,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 49` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBillCity(change(event, "CC Bill City", "length", 0, 2, 49)),
+                        onChange: event => {
+                          setCCBillCityVal(change(event, "CC Bill City", "length", 0, 2, 49)),
+                          dispatch(allActions.profileActions.setInfo("ccBillCity", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccBillCity
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={6} sm={6}>
                     <CustomInput
-                      success={ccBillState}
-                      error={!ccBillState}
+                      success={ccBillStateVal}
+                      error={!ccBillStateVal}
                       id="cc_bill_state"
                       labelText="Billing State"
                       formControlProps={{
@@ -565,17 +589,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 2` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBillState(change(event, "CC Bill State", "length", 0, 2, 2)),
+                        onChange: event => {
+                          setCCBillStateVal(change(event, "CC Bill State", "length", 0, 2, 2)),
+                          dispatch(allActions.profileActions.setInfo("ccBillState", event.target.value))
+                        },
                         type: "text",
+                        value: ccBillState
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={ccBillCountry}
-                      error={!ccBillCountry}
+                      success={ccBillCountryVal}
+                      error={!ccBillCountryVal}
                       id="cc_bill_country"
                       labelText="Billing Country"
                       formControlProps={{
@@ -584,17 +611,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 2` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBillCountry(change(event, "CC Bill Country", "length", 0, 2, 2)),
+                        onChange: event => {
+                          setCCBillCountryVal(change(event, "CC Bill Country", "length", 0, 2, 2)),
+                          dispatch(allActions.profileActions.setInfo("ccBillCountry", event.target.value))
+                        },
                         type: "text",
+                        value: ccBillCountry
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={ccBillPostal}
-                      error={!ccBillPostal}
+                      success={ccBillPostalVal}
+                      error={!ccBillPostalVal}
                       id="cc_bill_postal"
                       labelText="Billing Postal"
                       formControlProps={{
@@ -603,17 +633,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 5 characters and be less than 10` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBillPostal(change(event, "CC Bill Postal", "length", 0, 5, 10)),
+                        onChange: event => {
+                          setCCBillPostalVal(change(event, "CC Bill Postal", "length", 0, 5, 10)),
+                          dispatch(allActions.profileActions.setInfo("ccBillPostal", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccBillPostal
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={ccBillPhone}
-                      error={!ccBillPhone}
+                      success={ccBillPhoneVal}
+                      error={!ccBillPhoneVal}
                       id="cc_bill_phone"
                       labelText="Billing Phone"
                       formControlProps={{
@@ -622,9 +655,12 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 10 characters and be less than 24` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setCCBillPhone(change(event, "CC Bill Phone", "length", 0, 10, 24)),
+                        onChange: event => {
+                          setCCBillPhoneVal(change(event, "CC Bill Phone", "length", 0, 10, 24)),
+                          dispatch(allActions.profileActions.setInfo("ccBillPhone", event.target.value))
+                        },
                         type: "text",
+                        value: profile.ccBillPhone
                       }}
                     />
                   </GridItem>
@@ -637,8 +673,8 @@ export default function CreateProfile(props) {
                 <GridContainer>
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={shippingName}
-                      error={!shippingName}
+                      success={shippingNameVal}
+                      error={!shippingNameVal}
                       id="ship_name"
                       labelText="Full Name of Shipping Address"
                       formControlProps={{
@@ -647,17 +683,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 36` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingName(change(event, "Shipping Name", "length", 0, 2, 36)),
+                        onChange: event => {
+                          setShippingNameVal(change(event, "Shipping Name", "length", 0, 2, 36)),
+                          dispatch(allActions.profileActions.setInfo("shippingName", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shippingName
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={shipping1}
-                      error={!shipping1}
+                      success={shipping1Val}
+                      error={!shipping1Val}
                       id="ship_1"
                       labelText="Address Line 1"
                       formControlProps={{
@@ -666,17 +705,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 6 characters and be less than 48` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShipping1(change(event, "Shipping 1", "length", 0, 6, 48)),
+                        onChange: event => {
+                          setShipping1Val(change(event, "Shipping 1", "length", 0, 6, 48)),
+                          dispatch(allActions.profileActions.setInfo("shipping1", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shipping1
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={shipping2}
-                      error={!shipping2}
+                      success={shipping2Val}
+                      error={!shipping2Val}
                       id="ship_2"
                       labelText="Address Line 2"
                       formControlProps={{
@@ -685,17 +727,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 0 characters and be less than 48` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShipping2(change(event, "Shipping 2", "length", 0, 0, 48)),
+                        onChange: event => {
+                          setShipping2Val(change(event, "Shipping 2", "length", 0, 0, 48)),
+                          dispatch(allActions.profileActions.setInfo("shipping2", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shipping2
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={6} sm={6}>
                     <CustomInput
-                      success={shippingCity}
-                      error={!shippingCity}
+                      success={shippingCityVal}
+                      error={!shippingCityVal}
                       id="ship_city"
                       labelText="Shipping City"
                       formControlProps={{
@@ -704,17 +749,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 49` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingCity(change(event, "Shipping City", "length", 0, 2, 49)),
+                        onChange: event => {
+                          setShippingCityVal(change(event, "Shipping City", "length", 0, 2, 49)),
+                          dispatch(allActions.profileActions.setInfo("shippingCity", event.target.value))                          
+                        },
                         type: "text",
+                        value: shippingCity
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={6} sm={6}>
                     <CustomInput
-                      success={shippingState}
-                      error={!shippingState}
+                      success={shippingStateVal}
+                      error={!shippingStateVal}
                       id="ship_state"
                       labelText="Shipping State"
                       formControlProps={{
@@ -723,17 +771,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 2` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingState(change(event, "Shipping State", "length", 0, 2, 2)),
+                        onChange: event => {
+                          setShippingStateVal(change(event, "Shipping State", "length", 0, 2, 2)),
+                          dispatch(allActions.profileActions.setInfo("shippingState", event.target.value))
+                        },
                         type: "text",
+                        value: shippingState
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={shippingCountry}
-                      error={!shippingCountry}
+                      success={shippingCountryVal}
+                      error={!shippingCountryVal}
                       id="ship_country"
                       labelText="Shipping Country"
                       formControlProps={{
@@ -742,17 +793,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 2 characters and be less than 2` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingCountry(change(event, "Shipping Country", "length", 0, 2, 2)),
+                        onChange: event => {
+                          setShippingCountryVal(change(event, "Shipping Country", "length", 0, 2, 2)),
+                          dispatch(allActions.profileActions.setInfo("shippingCountry", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shippingCountry
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={shippingPostal}
-                      error={!shippingPostal}
+                      success={shippingPostalVal}
+                      error={!shippingPostalVal}
                       id="ship_postal"
                       labelText="Shipping Postal"
                       formControlProps={{
@@ -761,17 +815,20 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 5 characters and be less than 10` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingPostal(change(event, "Shipping Postal", "length", 0, 5, 10)),
+                        onChange: event => {
+                          setShippingPostalVal(change(event, "Shipping Postal", "length", 0, 5, 10)),
+                          dispatch(allActions.profileActions.setInfo("shippingPostal", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shippingPostal
                       }}
                     />
                   </GridItem>
 
                   <GridItem xs={4} sm={4}>
                     <CustomInput
-                      success={shippingPhone}
-                      error={!shippingPhone}
+                      success={shippingPhoneVal}
+                      error={!shippingPhoneVal}
                       id="ship_phone"
                       labelText="Shipping Phone"
                       formControlProps={{
@@ -780,9 +837,12 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 10 characters and be less than 24` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setShippingPhone(change(event, "Shipping Phone", "length", 0, 10, 24)),
+                        onChange: event => {
+                          setShippingPhoneVal(change(event, "Shipping Phone", "length", 0, 10, 24)),
+                          dispatch(allActions.profileActions.setInfo("shippingPhone", event.target.value))
+                        },
                         type: "text",
+                        value: profile.shippingPhone
                       }}
                     />
                   </GridItem>
