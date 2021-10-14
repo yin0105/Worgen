@@ -46,24 +46,6 @@ import Modal from '@mui/material/Modal';
 //   }
 // };
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-const buttonStyles = {
-  position: "absolute",
-  top: "10px",
-  right: "10px"
-};
-
 const headerButtonStyles = {
   color: "#F8E2B2",
   fontSize: "15px"
@@ -115,9 +97,13 @@ export default function AllProfiles() {
     showHide: false,
   });
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
+  const handleOpen = () => setOpenCreateProfile(true);
+  const handleClose = () => setOpenCreateProfile(false);
+  const [openCreateProfile, setOpenCreateProfile] = useState(false);
+
+  const closeCreateProfile = () => {
+    setOpenCreateProfile(false);
+  }
   // const [data, setData] = useState(
   //   dataTable.dataRows.map((prop, key) => {
   //     return {
@@ -738,34 +724,6 @@ export default function AllProfiles() {
             </CardHeader> */}
             <CardBody>
             <Styles>
-              {/* <Table
-                data={data}
-                // columns={columns}
-                columns={[
-                  {
-                    Header: "Name",
-                    accessor: "name"
-                  },
-                  {
-                    Header: "Position",
-                    accessor: "position"
-                  },
-                  {
-                    Header: "Office",
-                    accessor: "office"
-                  },
-                  {
-                    Header: "Age",
-                    accessor: "age"
-                  },
-                  {
-                    Header: "Actions",
-                    accessor: "actions",
-                    sortable: false,
-                    filterable: false
-                  }
-                ]}
-              /> */}
               <MDBDataTable
                 // striped
                 bordered
@@ -774,16 +732,6 @@ export default function AllProfiles() {
                 style={{ color: 'white', backgroundColor: '#615A3E'}}
               />
             </Styles>
-              
-              {/* <ReactTable
-                data={this.state.data}
-                filterable={false}
-                
-                defaultPageSize={10}
-                showPaginationTop={false}
-                showPaginationBottom
-                className="-striped -highlight"
-              /> */}
             </CardBody>
           </Card>
         </GridItem>
@@ -791,55 +739,18 @@ export default function AllProfiles() {
           
           {/* <CreateProfile /> */}
         </GridItem>
-        {/* <Modal
-          isOpen={this.state.showCreateProfileModal}
-          // onAfterOpen={afterOpenModal}
-          // onRequestClose={closeModal}
-          // style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
-        </Modal> */}
-
-        {/* {this.state.showCreateProfileModal? <CreateProfile/>: null} */}
-
-        {/* <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div> */}
+        <CreateProfile open={openCreateProfile} closeCreateProfile={closeCreateProfile}/>
         
-        <Modal
+        {/* <Modal
           open={open}
-          // onClose={handleClose}
+          onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-          <button onClick={handleClose} style={buttonStyles}>
-            &times;
-          </button>
+            <button onClick={handleClose} style={buttonStyles}>
+              &times;
+            </button>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Text in a modal
             </Typography>
@@ -847,7 +758,7 @@ export default function AllProfiles() {
               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </Typography>
           </Box>
-        </Modal>
+        </Modal> */}
       </GridContainer>
     );
 }
