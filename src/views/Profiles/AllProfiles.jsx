@@ -93,12 +93,7 @@ const Styles = styled.div `
   
 // class AllProfiles extends React.Component {
 export default function AllProfiles() {
-  const [state, setState] = React.useState({
-    showHide: false,
-  });
-  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpenCreateProfile(true);
-  const handleClose = () => setOpenCreateProfile(false);
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
 
   const closeCreateProfile = () => {

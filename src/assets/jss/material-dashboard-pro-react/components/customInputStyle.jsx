@@ -32,7 +32,7 @@ const customInputStyle = {
   },
   labelRoot: {
     ...defaultFont,
-    color: "#AAAAAA !important",
+    color: "#333333 !important",
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "1.42857",
@@ -65,16 +65,16 @@ const customInputStyle = {
     }
   },
   input: {
-    color: "#495057",
+    color: "black",
     "&,&::placeholder": {
-      fontSize: "14px",
+      fontSize: "30px",
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontWeight: "400",
       lineHeight: "1.42857",
-      opacity: "1"
+      opacity: "1",
     },
     "&::placeholder": {
-      color: "#AAAAAA"
+      color: "#333333"
     }
   },
   whiteInput: {
