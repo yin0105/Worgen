@@ -116,6 +116,11 @@ const setInfo = (key, value) => {
                 type: "SET_PROFILE_SHIPPINGPHONE",
                 payload: value
             };
+        case "clear":
+            return {
+                type: "CLEAR_PROFILE",
+                payload: ""
+            };
 
     }
 }

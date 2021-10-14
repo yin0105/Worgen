@@ -256,39 +256,73 @@ export default function CreateProfile(props) {
     const [open, setOpen] = useState(false);
     const [value, setValue] = React.useState(0);
 
-    const [firstNameVal, setFirstNameVal] = useState("")
-    const [lastNameVal, setLastNameVal] = useState("")
-    const [passwordVal, setPasswordVal] = useState("")
+    const [firstNameVal, setFirstNameVal] = useState(false)
+    const [lastNameVal, setLastNameVal] = useState(false)
+    const [passwordVal, setPasswordVal] = useState(false)
 
-    const [ccNameVal, setCCNameVal] = useState("")
-    const [ccNumberVal, setCCNumberVal] = useState("")
-    const [ccExpMonthVal, setCCExpMonthVal] = useState("")
-    const [ccExpYearVal, setCCExpYearVal] = useState("")
-    const [ccCVVVal, setCCCVVVal] = useState("")
+    const [ccNameVal, setCCNameVal] = useState(false)
+    const [ccNumberVal, setCCNumberVal] = useState(false)
+    const [ccExpMonthVal, setCCExpMonthVal] = useState(false)
+    const [ccExpYearVal, setCCExpYearVal] = useState(false)
+    const [ccCVVVal, setCCCVVVal] = useState(false)
 
-    const [ccBill1Val, setCCBill1Val] = useState("")
-    const [ccBill2Val, setCCBill2Val] = useState("")
-    const [ccBillCityVal, setCCBillCityVal] = useState("")
-    const [ccBillStateVal, setCCBillStateVal] = useState("")
-    const [ccBillCountryVal, setCCBillCountryVal] = useState("")
-    const [ccBillPostalVal, setCCBillPostalVal] = useState("")
-    const [ccBillPhoneVal, setCCBillPhoneVal] = useState("")
+    const [ccBill1Val, setCCBill1Val] = useState(false)
+    const [ccBill2Val, setCCBill2Val] = useState(false)
+    const [ccBillCityVal, setCCBillCityVal] = useState(false)
+    const [ccBillStateVal, setCCBillStateVal] = useState(false)
+    const [ccBillCountryVal, setCCBillCountryVal] = useState(false)
+    const [ccBillPostalVal, setCCBillPostalVal] = useState(false)
+    const [ccBillPhoneVal, setCCBillPhoneVal] = useState(false)
 
-    const [shippingNameVal, setShippingNameVal] = useState("")
-    const [shipping1Val, setShipping1Val] = useState("")
-    const [shipping2Val, setShipping2Val] = useState("")
-    const [shippingCityVal, setShippingCityVal] = useState("")
-    const [shippingStateVal, setShippingStateVal] = useState("")
-    const [shippingCountryVal, setShippingCountryVal] = useState("")
-    const [shippingPostalVal, setShippingPostalVal] = useState("")
-    const [shippingPhoneVal, setShippingPhoneVal] = useState("")
+    const [shippingNameVal, setShippingNameVal] = useState(false)
+    const [shipping1Val, setShipping1Val] = useState(false)
+    const [shipping2Val, setShipping2Val] = useState(false)
+    const [shippingCityVal, setShippingCityVal] = useState(false)
+    const [shippingStateVal, setShippingStateVal] = useState(false)
+    const [shippingCountryVal, setShippingCountryVal] = useState(false)
+    const [shippingPostalVal, setShippingPostalVal] = useState(false)
+    const [shippingPhoneVal, setShippingPhoneVal] = useState(false)
 
     const profile = useSelector((state) => state.profile)
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+
+      setFirstNameVal(false)
+      setLastNameVal(false)
+      setPasswordVal(false)
+
+      setCCNameVal(false)
+      setCCNumberVal(false)
+      setCCExpMonthVal(false)
+      setCCExpYearVal(false)
+      setCCCVVVal(false)
+
+      setCCBill1Val(false)
+      setCCBill2Val(false)
+      setCCBillCityVal(false)
+      setCCBillStateVal(false)
+      setCCBillCountryVal(false)
+      setCCBillPostalVal(false)
+      setCCBillPhoneVal(false)
+
+      setShippingNameVal(false)
+      setShipping1Val(false)
+      setShipping2Val(false)
+      setShippingCityVal(false)
+      setShippingStateVal(false)
+      setShippingCountryVal(false)
+      setShippingPostalVal(false)
+      setShippingPhoneVal(false)
+
+  }, [props]);
     
     const handleOpen = () => setOpen(true);
-    const handleClose = () => props.closeCreateProfile();
+    const handleClose = () => {
+      props.closeCreateProfile();
+      dispatch(allActions.profileActions.setInfo("clear", ""))
+    }
     
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -594,7 +628,7 @@ export default function CreateProfile(props) {
                           dispatch(allActions.profileActions.setInfo("ccBillState", event.target.value))
                         },
                         type: "text",
-                        value: ccBillState
+                        value: profile.ccBillState
                       }}
                     />
                   </GridItem>
@@ -616,7 +650,7 @@ export default function CreateProfile(props) {
                           dispatch(allActions.profileActions.setInfo("ccBillCountry", event.target.value))
                         },
                         type: "text",
-                        value: ccBillCountry
+                        value: profile.ccBillCountry
                       }}
                     />
                   </GridItem>
@@ -754,7 +788,7 @@ export default function CreateProfile(props) {
                           dispatch(allActions.profileActions.setInfo("shippingCity", event.target.value))                          
                         },
                         type: "text",
-                        value: shippingCity
+                        value: profile.shippingCity
                       }}
                     />
                   </GridItem>
@@ -776,7 +810,7 @@ export default function CreateProfile(props) {
                           dispatch(allActions.profileActions.setInfo("shippingState", event.target.value))
                         },
                         type: "text",
-                        value: shippingState
+                        value: profile.shippingState
                       }}
                     />
                   </GridItem>

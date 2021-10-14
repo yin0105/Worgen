@@ -115,6 +115,8 @@ const profile = (state = {}, action) => {
                 ...state,
                 shippingPhone: action.payload
             }
+        case "CLEAR_PROFILE":
+            return {}
         default:
             return state
     }

@@ -79,11 +79,11 @@ function CustomInput({ ...props }) {
         id={id}
         {...inputProps}
       />
-      {helpText !== undefined && error ? (
+      {/* {helpText !== undefined && error ? (
         <FormHelperText id={id + "-text"} className={helpTextClasses}>
           {helpText}
         </FormHelperText>
-      ) : null}
+      ) : null} */}
     </FormControl>
   );
 }
