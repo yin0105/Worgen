@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Button } from 'react-bootstrap';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
@@ -15,6 +16,7 @@ import { Close } from "@material-ui/icons";
 import GridContainer from "../Grid/GridContainer.jsx";
 import GridItem from "../Grid/GridItem.jsx";
 import CustomInput from "../CustomInput/CustomInput.jsx";
+import allActions from "../../redux/actions"
 // import Button from "../CustomButtons/Button.jsx";
 // import Card from "../Card/Card.jsx";
 // import CardHeader from "../Card/CardHeader.jsx";
@@ -138,7 +140,7 @@ const verifyLength = (value, minValue, maxValue) => {
 //   }
 // }
 
-const change = (event, stateName, type, stateNameEqualTo, minValue, maxValue) => {
+const change = (event, stateName, type, stateNameEqualTo, minValue, maxValue) => {  
   switch (type) {
     case "email":
       if (verifyEmail(event.target.value)) {
@@ -256,13 +258,34 @@ export default function CreateProfile(props) {
 
     const [firstNameVal, setFirstNameVal] = useState("")
     const [lastNameVal, setLastNameVal] = useState("")
-    const [password, setPassword] = useState("")
+    const [passwordVal, setPasswordVal] = useState("")
 
     const [ccName, setCCName] = useState("")
     const [ccNumber, setCCNumber] = useState("")
     const [ccExpMonth, setCCExpMonth] = useState("")
     const [ccExpYear, setCCExpYear] = useState("")
     const [ccCVV, setCCCVV] = useState("")
+
+    const [ccBill1, setCCBill1] = useState("")
+    const [ccBill2, setCCBill2] = useState("")
+    const [ccBillCity, setCCBillCity] = useState("")
+    const [ccBillState, setCCBillState] = useState("")
+    const [ccBillCountry, setCCBillCountry] = useState("")
+    const [ccBillPostal, setCCBillPostal] = useState("")
+    const [ccBillPhone, setCCBillPhone] = useState("")
+
+    const [shippingName, setShippingName] = useState("")
+    const [shipping1, setShipping1] = useState("")
+    const [shipping2, setShipping2] = useState("")
+    const [shippingCity, setShippingCity] = useState("")
+    const [shippingState, setShippingState] = useState("")
+    const [shippingCountry, setShippingCountry] = useState("")
+    const [shippingPostal, setShippingPostal] = useState("")
+    const [shippingPhone, setShippingPhone] = useState("")
+
+    const profile = useSelector((state) => state.profile)
+
+    const dispatch = useDispatch()
     
     const handleOpen = () => setOpen(true);
     const handleClose = () => props.closeCreateProfile();
@@ -298,7 +321,7 @@ export default function CreateProfile(props) {
                 textColor="inherit"
                 variant="fullWidth"
                 aria-label="full width tabs example"
-                style={{ marginTop: '20px'}}
+                style={{ marginTop: '30px'}}
               >
                 <Tab label="General Info" {...a11yProps(0)} />
                 <Tab label="Card Info" {...a11yProps(1)} />
@@ -328,10 +351,12 @@ export default function CreateProfile(props) {
                       helpText={`this field must contain at least 1 characters and be less than 36` }
                       style={ inputStyle }
                       inputProps={{
-                        onChange: event =>
-                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        onChange: event => {
+                          setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                          dispatch(allActions.profileActions.setInfo("firstName", event.target.value))                          
+                        },
                         type: "text",
-                        value: formData.firstName
+                        value: profile.firstName
                       }}
                     />
                   </GridItem>
@@ -345,28 +370,32 @@ export default function CreateProfile(props) {
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event =>
+                        onChange: event => {
                           setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
-                        type: "text"
+                          dispatch(allActions.profileActions.setInfo("lastName", event.target.value))
+                        },
+                        type: "text",
+                        value: profile.lastName
                       }}
-                      value={ formData.lastName }
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={lastNameVal}
-                      error={!lastNameVal}
+                      success={passwordVal}
+                      error={!passwordVal}
                       id="password"
                       labelText="Password"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event =>
-                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
-                        type: "password"
+                        onChange: event => {
+                          setPasswordVal(change(event, "Password", "length", 0 , 6, 24)),
+                          dispatch(allActions.profileActions.setInfo("password", event.target.value))
+                        },
+                        type: "password",
+                        value: profile.password
                       }}
-                      value={ formData.lastName }
                     />
                   </GridItem>
                 </GridContainer>
@@ -467,57 +496,136 @@ export default function CreateProfile(props) {
 
               <TabPanel value={value} index={2} dir={theme.direction}>
                 <GridContainer>
-                  <GridItem xs={6} sm={6}>
+                  <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={firstNameVal}
-                      error={!firstNameVal}
-                      id="first_name"
-                      labelText="First Name"
+                      success={ccBill1}
+                      error={!ccBill1}
+                      id="cc_bill_1"
+                      labelText="Address Line 1"
                       formControlProps={{
                         fullWidth: true
                       }}
-                      helpText={`this field must contain at least 1 characters and be less than 36` }
+                      helpText={`this field must contain at least 6 characters and be less than 48` }
                       style={ inputStyle }
                       inputProps={{
                         onChange: event =>
-                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        setCCBill1(change(event, "CC Bill 1", "length", 0, 6, 48)),
                         type: "text",
-                        value: formData.firstName
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={6} sm={6}>
-                    <CustomInput
-                      success={lastNameVal}
-                      error={!lastNameVal}
-                      id="last_name"
-                      labelText="Last Name"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        onChange: event =>
-                          setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
-                        type: "text"
-                      }}
-                      value={ formData.lastName }
-                    />
-                  </GridItem>
+
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={lastNameVal}
-                      error={!lastNameVal}
-                      id="password"
-                      labelText="Password"
+                      success={ccBill2}
+                      error={!ccBill2}
+                      id="cc_bill_2"
+                      labelText="Address Line 2"
                       formControlProps={{
                         fullWidth: true
                       }}
+                      helpText={`this field must contain at least 0 characters and be less than 48` }
+                      style={ inputStyle }
                       inputProps={{
                         onChange: event =>
-                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
-                        type: "password"
+                        setCCBill2(change(event, "CC Bill 2", "length", 0, 0, 48)),
+                        type: "text",
                       }}
-                      value={ formData.lastName }
+                    />
+                  </GridItem>
+
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={ccBillCity}
+                      error={!ccBillCity}
+                      id="cc_bill_city"
+                      labelText="Billing City"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 49` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCBillCity(change(event, "CC Bill City", "length", 0, 2, 49)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={ccBillState}
+                      error={!ccBillState}
+                      id="cc_bill_state"
+                      labelText="Billing State"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 2` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCBillState(change(event, "CC Bill State", "length", 0, 2, 2)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={ccBillCountry}
+                      error={!ccBillCountry}
+                      id="cc_bill_country"
+                      labelText="Billing Country"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 2` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCBillCountry(change(event, "CC Bill Country", "length", 0, 2, 2)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={ccBillPostal}
+                      error={!ccBillPostal}
+                      id="cc_bill_postal"
+                      labelText="Billing Postal"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 5 characters and be less than 10` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCBillPostal(change(event, "CC Bill Postal", "length", 0, 5, 10)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={ccBillPhone}
+                      error={!ccBillPhone}
+                      id="cc_bill_phone"
+                      labelText="Billing Phone"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 10 characters and be less than 24` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCBillPhone(change(event, "CC Bill Phone", "length", 0, 10, 24)),
+                        type: "text",
+                      }}
                     />
                   </GridItem>
                 </GridContainer>                
@@ -527,65 +635,163 @@ export default function CreateProfile(props) {
 
               <TabPanel value={value} index={3} dir={theme.direction}>
                 <GridContainer>
-                  <GridItem xs={6} sm={6}>
+                  <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={firstNameVal}
-                      error={!firstNameVal}
-                      id="first_name"
-                      labelText="First Name"
+                      success={shippingName}
+                      error={!shippingName}
+                      id="ship_name"
+                      labelText="Full Name of Shipping Address"
                       formControlProps={{
                         fullWidth: true
                       }}
-                      helpText={`this field must contain at least 1 characters and be less than 36` }
+                      helpText={`this field must contain at least 2 characters and be less than 36` }
                       style={ inputStyle }
                       inputProps={{
                         onChange: event =>
-                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        setShippingName(change(event, "Shipping Name", "length", 0, 2, 36)),
                         type: "text",
-                        value: formData.firstName
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={6} sm={6}>
-                    <CustomInput
-                      success={lastNameVal}
-                      error={!lastNameVal}
-                      id="last_name"
-                      labelText="Last Name"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        onChange: event =>
-                          setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
-                        type: "text"
-                      }}
-                      value={ formData.lastName }
-                    />
-                  </GridItem>
+
                   <GridItem xs={12} sm={12}>
                     <CustomInput
-                      success={lastNameVal}
-                      error={!lastNameVal}
-                      id="password"
-                      labelText="Password"
+                      success={shipping1}
+                      error={!shipping1}
+                      id="ship_1"
+                      labelText="Address Line 1"
                       formControlProps={{
                         fullWidth: true
                       }}
+                      helpText={`this field must contain at least 6 characters and be less than 48` }
+                      style={ inputStyle }
                       inputProps={{
                         onChange: event =>
-                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
-                        type: "password"
+                        setShipping1(change(event, "Shipping 1", "length", 0, 6, 48)),
+                        type: "text",
                       }}
-                      value={ formData.lastName }
+                    />
+                  </GridItem>
+
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={shipping2}
+                      error={!shipping2}
+                      id="ship_2"
+                      labelText="Address Line 2"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 0 characters and be less than 48` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShipping2(change(event, "Shipping 2", "length", 0, 0, 48)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={shippingCity}
+                      error={!shippingCity}
+                      id="ship_city"
+                      labelText="Shipping City"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 49` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShippingCity(change(event, "Shipping City", "length", 0, 2, 49)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={shippingState}
+                      error={!shippingState}
+                      id="ship_state"
+                      labelText="Shipping State"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 2` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShippingState(change(event, "Shipping State", "length", 0, 2, 2)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={shippingCountry}
+                      error={!shippingCountry}
+                      id="ship_country"
+                      labelText="Shipping Country"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 2 characters and be less than 2` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShippingCountry(change(event, "Shipping Country", "length", 0, 2, 2)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={shippingPostal}
+                      error={!shippingPostal}
+                      id="ship_postal"
+                      labelText="Shipping Postal"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 5 characters and be less than 10` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShippingPostal(change(event, "Shipping Postal", "length", 0, 5, 10)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={4} sm={4}>
+                    <CustomInput
+                      success={shippingPhone}
+                      error={!shippingPhone}
+                      id="ship_phone"
+                      labelText="Shipping Phone"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 10 characters and be less than 24` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setShippingPhone(change(event, "Shipping Phone", "length", 0, 10, 24)),
+                        type: "text",
+                      }}
                     />
                   </GridItem>
                 </GridContainer>                
               </TabPanel>
             </SwipeableViews>
-            <div className="d-flex justify-center">
-              <Button>Save</Button>
-              <Button >Close</Button>
+            <div className="d-flex mb-3" style={{ justifyContent: "space-evenly" }}>
+              <Button variant="primary" size="sm">Save</Button>
+              <Button variant="success" size="md" onClick={handleClose}>Close</Button>
             </div>
           </Box>
         </Modal>
