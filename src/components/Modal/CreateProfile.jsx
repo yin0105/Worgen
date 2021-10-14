@@ -9,7 +9,8 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { FormLabel } from "@material-ui/core";
+import { FormLabel, InputAdornment } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 
 import GridContainer from "../Grid/GridContainer.jsx";
 import GridItem from "../Grid/GridItem.jsx";
@@ -27,7 +28,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 800,
+    width: 600,
     bgcolor: '#BFB375',
     border: '2px solid white',
     borderRadius: '20px',
@@ -52,6 +53,12 @@ const buttonStyles = {
     color: 'white'
 
 };
+
+let formData = {
+  firstName: "ab",
+  lastName: "cd",
+  password: "ef"
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -95,11 +102,16 @@ function a11yProps(index) {
 //   return false;
 // }
 // // function that verifies if a string has a given length or not
-const verifyLength = (value, length) => {
-  if (value.length >= length) {
-    return true;
+const verifyLength = (value, minValue, maxValue) => {
+  console.log("verifyLeng: ", value, minValue, maxValue);
+  if (value.length < minValue) return false;
+  if (maxValue > 0) {
+    if (value.length > maxValue) {
+      return false;
+    }
   }
-  return false;
+  console.log("true");
+  return true;
 }
 // // function that verifies if two strings are equal
 // compare(string1, string2) {
@@ -126,7 +138,7 @@ const verifyLength = (value, length) => {
 //   }
 // }
 
-const change = (event, stateName, type, stateNameEqualTo, maxValue) => {
+const change = (event, stateName, type, stateNameEqualTo, minValue, maxValue) => {
   switch (type) {
     case "email":
       if (verifyEmail(event.target.value)) {
@@ -164,11 +176,8 @@ const change = (event, stateName, type, stateNameEqualTo, maxValue) => {
       }
       break;
     case "length":
-      if (verifyLength(event.target.value, stateNameEqualTo)) {
-        setState({ [stateName + "State"]: "success" });
-      } else {
-        setState({ [stateName + "State"]: "error" });
-      }
+      console.log(event.target.value, minValue, maxValue)
+      return verifyLength(event.target.value, minValue, maxValue);
       break;
     case "max-length":
       if (!verifyLength(event.target.value, stateNameEqualTo + 1)) {
@@ -229,209 +238,35 @@ const change = (event, stateName, type, stateNameEqualTo, maxValue) => {
 }
 
 function GeneralInfo(props) {
+
+  
+  
   return (
     <form>
-      <GridContainer>
-        <GridItem xs={6} sm={6}>
-          <CustomInput
-            // success={state.minLengthState === "success"}
-            // error={state.minLengthState === "error"}
-            id="first_name"
-            labelText="First Name"
-            formControlProps={{
-              fullWidth: true
-            }}
-            style={ inputStyle }
-            inputProps={{
-              onChange: event =>
-                change(event, "minLength", "length", 5),
-              type: "text",
-              // endAdornment:
-              //   state.minLengthState === "error" ? (
-              //     <InputAdornment position="end">
-              //       <Close />
-              //     </InputAdornment>
-              //   ) : (
-              //     undefined
-              //   )
-            }}
-          />
-        </GridItem>
-        <GridItem xs={6} sm={6}>
-          <CustomInput
-            // success={state.minLengthState === "success"}
-            // error={state.minLengthState === "error"}
-            id="last_name"
-            labelText="Last Name"
-            formControlProps={{
-              fullWidth: true
-            }}
-            inputProps={{
-              onChange: event =>
-                change(event, "minLength", "length", 5),
-              type: "text",
-              // endAdornment:
-              //   state.minLengthState === "error" ? (
-              //     <InputAdornment position="end">
-              //       <Close />
-              //     </InputAdornment>
-              //   ) : (
-              //     undefined
-              //   )
-            }}
-          />
-        </GridItem>
-        {/* <GridItem xs={12} sm={3}>
-          <FormLabel className={classes.labelLeftHorizontal}>
-            <code>minLength="5"</code>
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={2}>
-          <FormLabel className={classes.labelHorizontal}>
-            Max Length
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={7}>
-          <CustomInput
-            success={state.maxLengthState === "success"}
-            error={state.maxLengthState === "error"}
-            id="maxlength"
-            formControlProps={{
-              fullWidth: true
-            }}
-            inputProps={{
-              onChange: event =>
-                change(event, "maxLength", "max-length", 5),
-              type: "text",
-              endAdornment:
-                state.maxLengthState === "error" ? (
-                  <InputAdornment position="end">
-                    <Close className={classes.danger} />
-                  </InputAdornment>
-                ) : (
-                  undefined
-                )
-            }}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={3}>
-          <FormLabel className={classes.labelLeftHorizontal}>
-            <code>maxLength="5"</code>
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={2}>
-          <FormLabel className={classes.labelHorizontal}>
-            Range
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={7}>
-          <CustomInput
-            success={state.rangeState === "success"}
-            error={state.rangeState === "error"}
-            id="range"
-            formControlProps={{
-              fullWidth: true
-            }}
-            inputProps={{
-              onChange: event =>
-                change(event, "range", "range", 6, 10),
-              type: "text",
-              endAdornment:
-                state.rangeState === "error" ? (
-                  <InputAdornment position="end">
-                    <Close className={classes.danger} />
-                  </InputAdornment>
-                ) : (
-                  undefined
-                )
-            }}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={3}>
-          <FormLabel className={classes.labelLeftHorizontal}>
-            <code>range="[6,10]"</code>
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={2}>
-          <FormLabel className={classes.labelHorizontal}>
-            Min Value
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={7}>
-          <CustomInput
-            success={state.minValueState === "success"}
-            error={state.minValueState === "error"}
-            id="minvalue"
-            formControlProps={{
-              fullWidth: true
-            }}
-            inputProps={{
-              onChange: event =>
-                change(event, "minValue", "min-value", 6),
-              type: "text",
-              endAdornment:
-                state.minValueState === "error" ? (
-                  <InputAdornment position="end">
-                    <Close className={classes.danger} />
-                  </InputAdornment>
-                ) : (
-                  undefined
-                )
-            }}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={3}>
-          <FormLabel className={classes.labelLeftHorizontal}>
-            <code>min="6"</code>
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={2}>
-          <FormLabel className={classes.labelHorizontal}>
-            Max Value
-          </FormLabel>
-        </GridItem>
-        <GridItem xs={12} sm={7}>
-          <CustomInput
-            success={state.maxValueState === "success"}
-            error={state.maxValueState === "error"}
-            id="maxvalue"
-            formControlProps={{
-              fullWidth: true
-            }}
-            inputProps={{
-              onChange: event =>
-                change(event, "maxValue", "max-value", 6),
-              type: "text",
-              endAdornment:
-                state.maxValueState === "error" ? (
-                  <InputAdornment position="end">
-                    <Close className={classes.danger} />
-                  </InputAdornment>
-                ) : (
-                  undefined
-                )
-            }}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={3}>
-          <FormLabel className={classes.labelLeftHorizontal}>
-            <code>max="6"</code>
-          </FormLabel>
-        </GridItem> */}
-      </GridContainer>
+      
     </form>
   );
 }
 
 export default function CreateProfile(props) {
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => props.closeCreateProfile();
-
     const theme = useTheme();
+    const [open, setOpen] = useState(false);
     const [value, setValue] = React.useState(0);
 
+    const [firstNameVal, setFirstNameVal] = useState("")
+    const [lastNameVal, setLastNameVal] = useState("")
+    const [password, setPassword] = useState("")
+
+    const [ccName, setCCName] = useState("")
+    const [ccNumber, setCCNumber] = useState("")
+    const [ccExpMonth, setCCExpMonth] = useState("")
+    const [ccExpYear, setCCExpYear] = useState("")
+    const [ccCVV, setCCCVV] = useState("")
+    
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => props.closeCreateProfile();
+    
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -449,17 +284,6 @@ export default function CreateProfile(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          {/* <Box sx={style}>
-            <button onClick={handleClose} style={buttonStyles}>
-              &times;
-            </button>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box> */}
           <Box sx={style}>
             <AppBar position="static" style={{ backgroundColor: '#615A3E', color: 'white', borderRadius: '20px 20px 0px 0px'}}>
               <div>
@@ -487,19 +311,282 @@ export default function CreateProfile(props) {
               index={value}
               onChangeIndex={handleChangeIndex}
             >
+
+{/* General Info */}
+
               <TabPanel value={value} index={0} dir={theme.direction}>
-                <GeneralInfo />
+                <GridContainer>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={firstNameVal}
+                      error={!firstNameVal}
+                      id="first_name"
+                      labelText="First Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 1 characters and be less than 36` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        type: "text",
+                        value: formData.firstName
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="last_name"
+                      labelText="Last Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
+                        type: "text"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="password"
+                      labelText="Password"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
+                        type: "password"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                </GridContainer>
               </TabPanel>
+
+{/* Card Info */}
+
               <TabPanel value={value} index={1} dir={theme.direction}>
-                Item Two
+                <GridContainer>
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={ccName}
+                      error={!ccName}
+                      id="cc_name"
+                      labelText="Full Name on Credit Card"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 3 characters and be less than 36` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCName(change(event, "CC Name", "length", 0, 3, 36)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={ccNumber}
+                      error={!ccNumber}
+                      id="cc_number"
+                      labelText="Credit Card Number"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 14 characters and be less than 19` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setCCNumber(change(event, "CC Number", "length", 0, 14, 19)),
+                        type: "text",
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={5} sm={5}>
+                    <CustomInput
+                      success={ccExpMonth}
+                      error={!ccExpMonth}
+                      id="cc_exp_month"
+                      labelText="CC Expiration Month"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setCCExpMonth(change(event, "CC Expiration Month", "length", 0 , 1, 2)),
+                        type: "text"
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={5} sm={5}>
+                    <CustomInput
+                      success={ccExpYear}
+                      error={!ccExpYear}
+                      id="cc_exp_year"
+                      labelText="CC Expiration Year"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setCCExpYear(change(event, "CC Expiration Year", "length", 0 , 4, 4)),
+                        type: "text"
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={2} sm={2}>
+                    <CustomInput
+                      success={ccCVV}
+                      error={!ccCVV}
+                      id="cc_cvv"
+                      labelText="CC CVV"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setCCCVV(change(event, "CC CVV", "length", 0 , 3, 4)),
+                        type: "text"
+                      }}
+                    />
+                  </GridItem>
+                </GridContainer>                
               </TabPanel>
+
+{/* Billing Address */}
+
               <TabPanel value={value} index={2} dir={theme.direction}>
-                Item Three
+                <GridContainer>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={firstNameVal}
+                      error={!firstNameVal}
+                      id="first_name"
+                      labelText="First Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 1 characters and be less than 36` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        type: "text",
+                        value: formData.firstName
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="last_name"
+                      labelText="Last Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
+                        type: "text"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="password"
+                      labelText="Password"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
+                        type: "password"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                </GridContainer>                
               </TabPanel>
+
+{/* Shipping Address */}
+
               <TabPanel value={value} index={3} dir={theme.direction}>
-                Item Three
+                <GridContainer>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={firstNameVal}
+                      error={!firstNameVal}
+                      id="first_name"
+                      labelText="First Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      helpText={`this field must contain at least 1 characters and be less than 36` }
+                      style={ inputStyle }
+                      inputProps={{
+                        onChange: event =>
+                        setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                        type: "text",
+                        value: formData.firstName
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={6} sm={6}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="last_name"
+                      labelText="Last Name"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
+                        type: "text"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12}>
+                    <CustomInput
+                      success={lastNameVal}
+                      error={!lastNameVal}
+                      id="password"
+                      labelText="Password"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event =>
+                          setLastNameVal(change(event, "Password", "length", 0 , 6, 24)),
+                        type: "password"
+                      }}
+                      value={ formData.lastName }
+                    />
+                  </GridItem>
+                </GridContainer>                
               </TabPanel>
             </SwipeableViews>
+            <div className="d-flex justify-center">
+              <Button>Save</Button>
+              <Button >Close</Button>
+            </div>
           </Box>
         </Modal>
     )

@@ -62,7 +62,7 @@ function Header({ ...props }) {
                 justIcon
                 round
                 color={"#F8E2B2"}
-                backgroundColor={"black"}
+                backgroundcolor={"black"}
                 onClick={props.sidebarMinimize}
               >
                 <ViewList className={classes.sidebarMiniIcon} />
@@ -72,7 +72,7 @@ function Header({ ...props }) {
                 justIcon
                 round
                 color={"#F8E2B2"}
-                backgroundColor={"black"}
+                backgroundcolor={"black"}
                 onClick={props.sidebarMinimize}
               >
                 <MoreVert className={classes.sidebarMiniIcon} />
