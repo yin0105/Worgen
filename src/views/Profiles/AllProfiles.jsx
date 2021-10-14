@@ -7,8 +7,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 import Assignment from "@material-ui/icons/Assignment";
 import Dvr from "@material-ui/icons/Dvr";
-// import  from "@material-ui/icons/AddCircle";
-// import ImportExport from "@material-ui/icons/ImportExport";
 import Favorite from "@material-ui/icons/Favorite";
 import Close from "@material-ui/icons/Close";
 // core components
@@ -27,27 +25,57 @@ import { AddCircle, ImportExport } from "@material-ui/icons";
 // import CreateProfile from "../../components/Modal/CreateProfile";
 
 import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 import CreateProfile from "../../components/Modal/CreateProfile";
 import { MDBDataTable } from 'mdbreact';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 
-const styles = {
-  cardIconTitle: {
-    ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
-  }
+// import * as React from 'react';
+import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+// const styles = {
+//   cardIconTitle: {
+//     ...cardTitle,
+//     marginTop: "15px",
+//     marginBottom: "0px"
+//   }
+// };
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
 };
+
+const buttonStyles = {
+  position: "absolute",
+  top: "10px",
+  right: "10px"
+};
+
+const headerButtonStyles = {
+  color: "#F8E2B2",
+  fontSize: "15px"
+}
 
 import { useTable, usePagination } from 'react-table'
 import styled from 'styled-components'
 
 const Styles = styled.div `
   table.dataTable tbody tr {
-    background-color: #27293D !important;
+    background-color: #BFB375 !important;
+    color: black;
   }
 
   .pagination .page-item .page-link, .dataTables_info {
@@ -78,179 +106,17 @@ const Styles = styled.div `
       border-bottom: 1px solid white;
     }
   }
-
-  // .pagination {
-  //   padding: 0.5rem;
-  //   list-style-type: none;
-  // }
-
-  // .page-item {
-  //   padding: 0px 30px;
-  // }
 `
 
-function Table({columns, data}) {
-  // const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({columns, data})
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-} = useTable(
-    {
-        columns,
-        data,
-        initialState: { pageIndex: 2, pageSize: 5 },
-    },
-    usePagination
-)
-
-  // Render Data Table UI
-  // return (
-  //   <table {...getTableProps()}>
-  //     <thead>
-  //       {headerGroups.map(headerGroup => (
-  //         <tr {...headerGroup.getHeaderGroupProps()}>
-  //           {headerGroup
-  //             .headers
-  //             .map(column => (
-  //               <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-  //             ))}
-  //         </tr>
-  //       ))}
-  //     </thead>
-  //     <tbody {...getTableBodyProps()}>
-  //       {rows.map((row, i) => {
-  //         prepareRow(row);
-  //         return (
-  //           <tr {...row.getRowProps()}>
-  //             {row
-  //               .cells
-  //               .map(cell => {
-  //                 return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-  //               })}
-  //           </tr>
-  //         )
-  //       })}
-  //     </tbody>
-  //   </table>
-  // )
-
-  return (
-    <div>
-        <pre>
-            <code>
-                {JSON.stringify(
-                    {
-                        pageIndex,
-                        pageSize,
-                        pageCount,
-                        canNextPage,
-                        canPreviousPage,
-                    },
-                    null,
-                    2
-                )}
-            </code>
-        </pre>
-        <table className="table" {...getTableProps()}>
-            <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-                {page.map((row, i) => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                            })}
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-        {/* 
-    Pagination can be built however you'd like. 
-    This is just a very basic UI implementation:
-  */}
-        <ul className="pagination">
-            <li className="page-item" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                <a className="page-link">First</a>
-            </li>
-            <li className="page-item" onClick={() => previousPage()} disabled={!canPreviousPage}>
-                <a className="page-link">{'<'}</a>
-            </li>
-            <li className="page-item" onClick={() => nextPage()} disabled={!canNextPage}>
-                <a className="page-link">{'>'}</a>
-            </li>
-            <li className="page-item" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                <a className="page-link">Last</a>
-            </li>
-            <li>
-                <a className="page-link">
-                    Page{' '}
-                    <strong>
-                        {pageIndex + 1} of {pageOptions.length}
-                    </strong>{' '}
-                </a>
-            </li>
-            <li>
-                <a className="page-link">
-                    <input
-                        className="form-control"
-                        type="number"
-                        defaultValue={pageIndex + 1}
-                        onChange={e => {
-                            const page = e.target.value ? Number(e.target.value) - 1 : 0
-                            gotoPage(page)
-                        }}
-                        style={{ width: '100px', height: '20px' }}
-                    />
-                </a>
-            </li>{' '}
-            <select
-                className="form-control"
-                value={pageSize}
-                onChange={e => {
-                    setPageSize(Number(e.target.value))
-                }}
-                style={{ width: '120px', height: '38px' }}
-            >
-                {[5, 10, 20, 30, 40, 50].map(pageSize => (
-                    <option key={pageSize} value={pageSize}>
-                        Show {pageSize}
-                    </option>
-                ))}
-            </select>
-        </ul>
-    </div >
-  )
-}
-
-
-
+  
 // class AllProfiles extends React.Component {
 export default function AllProfiles() {
   const [state, setState] = React.useState({
     showHide: false,
   });
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
   // const [data, setData] = useState(
   //   dataTable.dataRows.map((prop, key) => {
@@ -848,59 +714,21 @@ export default function AllProfiles() {
           <Button
             round
             simple
-            // onClick={() => {
-            //   let obj = this.state.data.find(o => o.id === key);
-            //   alert(
-            //     "You've clicked EDIT button on \n{ \nName: " +
-            //       obj.name +
-            //       ", \nposition: " +
-            //       obj.position +
-            //       ", \noffice: " +
-            //       obj.office +
-            //       ", \nage: " +
-            //       obj.age +
-            //       "\n}."
-            //   );
-            // }}
-            color="warning"
-            className="edit"
+            onClick={handleOpen}
+            className="like"
+            style={headerButtonStyles}
           >
-            <AddCircle /> Create Profile
+            <AddCircle />Create Profile
           </Button>{" "}
           <Button
             round
             simple
-            // onClick={() => {
-            //   let obj = this.state.data.find(o => o.id === key);
-            //   alert(
-            //     "You've clicked EDIT button on \n{ \nName: " +
-            //       obj.name +
-            //       ", \nposition: " +
-            //       obj.position +
-            //       ", \noffice: " +
-            //       obj.office +
-            //       ", \nage: " +
-            //       obj.age +
-            //       "\n}."
-            //   );
-            // }}
-            color="warning"
-            className="edit"
+            onClick={handleOpen}
+            className="like"
+            style={headerButtonStyles}
           >
-            <ImportExport /> Import/Expert Profiles
+            <ImportExport />Import/Export Profile
           </Button>{" "}
-          <button
-            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
-            onClick={() => 
-              {
-                this.setState({showCreateProfileModal: true});
-                console.log("state = ", this.state.showCreateProfileModal)
-              }
-            }
-          >
-            Open regular modal
-          </button>
           <Card style={{ backgroundColor: '#27293D', color: 'white' }}>
             {/* <CardHeader color="primary" icon>
               <CardIcon color="primary">
@@ -943,7 +771,7 @@ export default function AllProfiles() {
                 bordered
                 small
                 data={data}
-                style={{ color: 'white', backgroundColor: '#222222'}}
+                style={{ color: 'white', backgroundColor: '#615A3E'}}
               />
             </Styles>
               
@@ -1001,6 +829,25 @@ export default function AllProfiles() {
             </div>
           </div>
         </div> */}
+        
+        <Modal
+          open={open}
+          // onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+          <button onClick={handleClose} style={buttonStyles}>
+            &times;
+          </button>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Modal>
       </GridContainer>
     );
 }

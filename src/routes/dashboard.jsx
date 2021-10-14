@@ -1,29 +1,4 @@
-// import Dashboard from "../views/Dashboard/Dashboard.jsx";
-// import Buttons from "../views/Components/Buttons.jsx";
-// import GridSystem from "../views/Components/GridSystem.jsx";
-// import Panels from "../views/Components/Panels.jsx";
-// import SweetAlert from "../views/Components/SweetAlert.jsx";
-// import Notifications from "../views/Components/Notifications.jsx";
-// import Icons from "../views/Components/Icons.jsx";
-// import Typography from "../views/Components/Typography.jsx";
-// import RegularForms from "../views/Forms/RegularForms.jsx";
-// import ExtendedForms from "../views/Forms/ExtendedForms.jsx";
-// import ValidationForms from "../views/Forms/ValidationForms.jsx";
-// import Wizard from "../views/Forms/Wizard.jsx";
-// import RegularTables from "../views/Profiles/RegularTables.jsx";
-// import ExtendedTables from "../views/Profiles/ExtendedTables.jsx";
 import AllProfiles from "../views/Profiles/AllProfiles.jsx";
-// import GoogleMaps from "../views/Maps/GoogleMaps.jsx";
-// import FullScreenMap from "../views/Maps/FullScreenMap.jsx";
-// import VectorMap from "../views/Maps/VectorMap.jsx";
-// import Charts from "../views/Charts/Charts.jsx";
-// import Calendar from "../views/Calendar/Calendar.jsx";
-// import Widgets from "../views/Widgets/Widgets.jsx";
-// import UserProfile from "../views/Pages/UserProfile.jsx";
-// import TimelinePage from "../views/Pages/Timeline.jsx";
-// import RTLSupport from "../views/Pages/RTLSupport.jsx";
-
-// import pagesRoutes from "./pages.jsx";
 
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -147,23 +122,41 @@ var dashRoutes = [
   //   ]
   // },
   {
-    // collapse: true,
-    // path: "/profile",
-    // name: "All Profiles",
-    // state: "openTables",
-    // icon: GridOn,
-    // views: [
-    //   {
-    //     path: "/profile/all-profiles",
-    //     name: "All Profiles",
-    //     mini: "RT",
-    //     component: AllProfiles
-    //   }
-    // ]
+    collapse: true,
+    path: "/profile",
+    name: "Profile",
+    state: "openTables",
+    icon: GridOn,
+    views: [
+      {
+        path: "/profile/list",
+        name: "List Profiles",
+        mini: "RT",
+        component: AllProfiles
+      },
+      {
+        path: "/profile/create",
+        name: "Crete Profile",
+        mini: "RT",
+        component: AllProfiles
+      },
+      {
+        path: "/profile/import",
+        name: "Import Profiles",
+        mini: "RT",
+        component: AllProfiles
+      },
+      {
+        path: "/profile/export",
+        name: "Export Profiles",
+        mini: "RT",
+        component: AllProfiles
+      }
+    ]
 
-    path: "/profile", name: "All Profiles", icon: WidgetsIcon, component: AllProfiles 
+    // path: "/profile", name: "Profile", icon: WidgetsIcon, component: AllProfiles 
   },
-  { path: "/account", name: "All Accounts", icon: WidgetsIcon, component: AllProfiles  },
+  { path: "/account", name: "Account", icon: WidgetsIcon, component: AllProfiles  },
   // {
   //   collapse: true,
   //   path: "/maps",
@@ -194,7 +187,7 @@ var dashRoutes = [
   // { path: "/widgets", name: "Widgets", icon: WidgetsIcon, component: Widgets },
   // { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   // { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
-  { redirect: true, path: "/", pathTo: "/profile", name: "AllProfiles" }
+  { redirect: true, path: "/", pathTo: "/profile/list", name: "List Profiles" }
 
 ];
 export default dashRoutes;

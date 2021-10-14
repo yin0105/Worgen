@@ -61,7 +61,8 @@ function Header({ ...props }) {
               <Button
                 justIcon
                 round
-                color="white"
+                color={"#F8E2B2"}
+                backgroundColor={"black"}
                 onClick={props.sidebarMinimize}
               >
                 <ViewList className={classes.sidebarMiniIcon} />
@@ -70,7 +71,8 @@ function Header({ ...props }) {
               <Button
                 justIcon
                 round
-                color="white"
+                color={"#F8E2B2"}
+                backgroundColor={"black"}
                 onClick={props.sidebarMinimize}
               >
                 <MoreVert className={classes.sidebarMiniIcon} />
@@ -81,7 +83,7 @@ function Header({ ...props }) {
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           <Button href="#" className={classes.title} color="transparent">
-            <span style={{ color: 'white' }}>
+            <span style={{ color: '#F8E2B2', textTransform: 'uppercase' }}>
               {makeBrand()}
             </span>
           </Button>
