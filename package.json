@@ -1,78 +1,132 @@
 {
-  "name": "material-dashboard-pro-react",
-  "version": "1.4.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@material-ui/core": "4.12.3",
-    "@material-ui/icons": "4.11.2",
-    "@mui/material": "^5.0.3",
-    "bootstrap": "^5.1.3",
-    "chartist": "0.11.4",
-    "history": "5.0.1",
-    "mdbreact": "^5.1.0",
-    "moment": "2.29.1",
-    "node-sass-chokidar": "1.5.0",
-    "nouislider": "15.5.0",
-    "npm-run-all": "4.1.5",
-    "perfect-scrollbar": "1.5.2",
-    "react": "17.0.2",
-    "react-big-calendar": "0.36.1",
-    "react-bootstrap": "^1.6.4",
-    "react-bootstrap-sweetalert": "5.2.0",
-    "react-chartist": "0.14.4",
-    "react-datetime": "3.1.1",
-    "react-dom": "17.0.2",
-    "react-google-maps": "9.4.5",
-    "react-jvectormap": "0.0.16",
-    "react-modal": "^3.14.3",
-    "react-redux": "^7.2.5",
-    "react-router-dom": "5.3.0",
-    "react-scripts": "4.0.3",
-    "react-swipeable-views": "0.14.0",
-    "react-table": "7.7.0",
-    "react-tagsinput": "3.19.0",
-    "redux": "^4.1.1",
-    "styled-components": "^5.3.1"
-  },
-  "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build",
-    "lint:check": "eslint . --ext=js,jsx;  exit 0",
-    "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
-    "node_modules": "rm -rf node_modules/ && rm -rf package-lock.json",
-    "node_modules-w": "rmdir node_modules /s && del package-lock.json",
-    "install:clean": "npm run node_modules && npm install && npm start",
-    "install:clean-w": "npm run node_modules-w && npm install && npm start"
-  },
-  "optionalDependencies": {
-    "@babel/core": "7.15.8",
-    "@types/googlemaps": "3.43.3",
-    "@types/markerclustererplus": "2.1.33",
-    "ajv": "8.6.3",
-    "babel-eslint": "10.1.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-react": "7.26.1",
-    "prettier": "2.4.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "worgen",
+    "version": "1.0.0",
+    "private": true,
+    "description": "worgen desktop app",
+    "author": "devok121212@gmail.com",
+    "dependencies": {
+        "@emotion/react": "^11.4.1",
+        "@emotion/styled": "^11.3.0",
+        "@material-ui/core": "4.12.3",
+        "@material-ui/icons": "4.11.2",
+        "@mui/material": "^5.0.3",
+        "bootstrap": "^5.1.3",
+        "chartist": "0.11.4",
+        "electron-is-dev": "^2.0.0",
+        "history": "5.0.1",
+        "mdbreact": "^5.1.0",
+        "moment": "2.29.1",
+        "node-sass-chokidar": "1.5.0",
+        "nouislider": "15.5.0",
+        "npm-run-all": "4.1.5",
+        "perfect-scrollbar": "1.5.2",
+        "react": "17.0.2",
+        "react-big-calendar": "0.36.1",
+        "react-bootstrap": "^1.6.4",
+        "react-bootstrap-sweetalert": "5.2.0",
+        "react-chartist": "0.14.4",
+        "react-datetime": "3.1.1",
+        "react-dom": "17.0.2",
+        "react-google-maps": "9.4.5",
+        "react-jvectormap": "0.0.16",
+        "react-modal": "^3.14.3",
+        "react-redux": "^7.2.5",
+        "react-router-dom": "5.3.0",
+        "react-scripts": "4.0.3",
+        "react-swipeable-views": "0.14.0",
+        "react-table": "7.7.0",
+        "react-tagsinput": "3.19.0",
+        "redux": "^4.1.1",
+        "styled-components": "^5.3.1"
+    },
+    "scripts": {
+        "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+        "start-js": "react-scripts start",
+        "react-start": "npm-run-all -p watch-css start-js",
+        "react-build": "npm run build-css && react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject",
+        "deploy": "npm run build",
+        "lint:check": "eslint . --ext=js,jsx;  exit 0",
+        "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
+        "node_modules": "rm -rf node_modules/ && rm -rf package-lock.json",
+        "node_modules-w": "rmdir node_modules /s && del package-lock.json",
+        "install:clean": "npm run node_modules && npm install && npm start",
+        "install:clean-w": "npm run node_modules-w && npm install && npm start",
+        "dev": "concurrently -k \"cross-env BROWSER=none yarn react-start\" \"yarn:electron\"",
+        "electron": "wait-on tcp:3000 && electron .",
+        "electron-build": "electron-builder",
+        "release": "yarn react-build && electron-builder --publish=always",
+        "build": "yarn react-build && yarn electron-build",
+        "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"yarn:electron\""
+    },
+    "optionalDependencies": {
+        "@babel/core": "7.15.8",
+        "@types/googlemaps": "3.43.3",
+        "@types/markerclustererplus": "2.1.33",
+        "ajv": "8.6.3",
+        "babel-eslint": "10.1.0",
+        "eslint-config-prettier": "8.3.0",
+        "eslint-plugin-prettier": "4.0.0",
+        "eslint-plugin-react": "7.26.1",
+        "prettier": "2.4.1"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "build": {
+        "appId": "test_electron",
+        "dmg": {
+            "contents": [
+                {
+                    "x": 110,
+                    "y": 150
+                },
+                {
+                    "x": 240,
+                    "y": 150,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ]
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ]
+        },
+        "win": {
+            "target": "NSIS",
+            "icon": "build/logo.ico"
+        },
+        "squirrelWindows": {
+            "iconUrl": "http://localhost:8000/static/img/logo.jpg"
+        },
+        "extraResources": [
+            {
+                "from": "./build/",
+                "to": "build"
+            }
+        ]
+    },
+    "main": "public/electron.js",
+    "homepage": ".",
+    "devDependencies": {
+        "concurrently": "^6.3.0",
+        "cross-env": "^7.0.3",
+        "electron": "^15.2.0",
+        "electron-builder": "^22.13.1",
+        "wait-on": "^6.0.0"
+    }
 }

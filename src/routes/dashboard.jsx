@@ -121,41 +121,42 @@ var dashRoutes = [
   //     { path: "/forms/wizard", name: "Wizard", mini: "W", component: Wizard }
   //   ]
   // },
-  {
-    collapse: true,
-    path: "/profile",
-    name: "Profile",
-    state: "openTables",
-    icon: GridOn,
-    views: [
-      {
-        path: "/profile/list",
-        name: "List Profiles",
-        mini: "RT",
-        component: AllProfiles
-      },
-      {
-        path: "/profile/create",
-        name: "Crete Profile",
-        mini: "RT",
-        component: AllProfiles
-      },
-      {
-        path: "/profile/import",
-        name: "Import Profiles",
-        mini: "RT",
-        component: AllProfiles
-      },
-      {
-        path: "/profile/export",
-        name: "Export Profiles",
-        mini: "RT",
-        component: AllProfiles
-      }
-    ]
+  // {
+  //   collapse: true,
+  //   path: "/profile",
+  //   name: "Profile",
+  //   state: "openTables",
+  //   icon: GridOn,
+  //   views: [
+  //     {
+  //       path: "/profile/list",
+  //       name: "List Profiles",
+  //       mini: "RT",
+  //       component: AllProfiles
+  //     },
+  //     {
+  //       path: "/profile/create",
+  //       name: "Crete Profile",
+  //       mini: "RT",
+  //       component: AllProfiles
+  //     },
+  //     {
+  //       path: "/profile/import",
+  //       name: "Import Profiles",
+  //       mini: "RT",
+  //       component: AllProfiles
+  //     },
+  //     {
+  //       path: "/profile/export",
+  //       name: "Export Profiles",
+  //       mini: "RT",
+  //       component: AllProfiles
+  //     }
+  //   ]
 
-    // path: "/profile", name: "Profile", icon: WidgetsIcon, component: AllProfiles 
-  },
+  //   // path: "/profile", name: "Profile", icon: WidgetsIcon, component: AllProfiles 
+  // },
+  { path: "/profile", name: "Profile", icon: GridOn, component: AllProfiles  },
   { path: "/account", name: "Account", icon: WidgetsIcon, component: AllProfiles  },
   // {
   //   collapse: true,

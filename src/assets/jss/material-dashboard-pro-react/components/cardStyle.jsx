@@ -6,7 +6,7 @@ const cardStyle = {
   card: {
     border: "0",
     marginBottom: "10px",
-    marginTop: "0px",
+    marginTop: "10px",
     borderRadius: "6px",
     color: "rgba(0, 0, 0, 0.87)",
     background: "#fff",
