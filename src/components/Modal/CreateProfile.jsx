@@ -48,12 +48,6 @@ const buttonStyles = {
 
 };
 
-let formData = {
-  firstName: "ab",
-  lastName: "cd",
-  password: "ef"
-}
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
