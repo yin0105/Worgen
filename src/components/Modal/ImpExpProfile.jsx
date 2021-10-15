@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import ReactDOM from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Radio, RadioGroup, FormControlLabel, FormControl, Modal, AppBar, Button, Stack } from '@mui/material';
 // import { Button } from 'react-bootstrap';
@@ -14,6 +15,7 @@ import CustomInput from "../CustomInput/CustomInput.jsx";
 import allActions from "../../redux/actions"
 
 import { styled } from '@mui/material/styles';
+import CSVReader from 'react-csv-reader'
 
 const style = {
     position: 'absolute',
@@ -33,6 +35,14 @@ const style = {
         span: {
             color: 'white',
         }
+    },
+    '.csv-label': {
+        display: 'none'
+    },
+    '.csv-reader-input': {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
     }
 };
 
@@ -64,73 +74,19 @@ export default function ImpExpProfile(props) {
     const theme = useTheme();
     const [isImport, setIsImport] = useState(true);
     const [isImportAppend, setIsImportAppend] = useState(true);
-    const [value, setValue] = React.useState(0);
-
-    const [firstNameVal, setFirstNameVal] = useState(false)
-    const [lastNameVal, setLastNameVal] = useState(false)
-    const [passwordVal, setPasswordVal] = useState(false)
-
-    const [ccNameVal, setCCNameVal] = useState(false)
-    const [ccNumberVal, setCCNumberVal] = useState(false)
-    const [ccExpMonthVal, setCCExpMonthVal] = useState(false)
-    const [ccExpYearVal, setCCExpYearVal] = useState(false)
-    const [ccCVVVal, setCCCVVVal] = useState(false)
-
-    const [ccBill1Val, setCCBill1Val] = useState(false)
-    const [ccBill2Val, setCCBill2Val] = useState(false)
-    const [ccBillCityVal, setCCBillCityVal] = useState(false)
-    const [ccBillStateVal, setCCBillStateVal] = useState(false)
-    const [ccBillCountryVal, setCCBillCountryVal] = useState(false)
-    const [ccBillPostalVal, setCCBillPostalVal] = useState(false)
-    const [ccBillPhoneVal, setCCBillPhoneVal] = useState(false)
-
-    const [shippingNameVal, setShippingNameVal] = useState(false)
-    const [shipping1Val, setShipping1Val] = useState(false)
-    const [shipping2Val, setShipping2Val] = useState(false)
-    const [shippingCityVal, setShippingCityVal] = useState(false)
-    const [shippingStateVal, setShippingStateVal] = useState(false)
-    const [shippingCountryVal, setShippingCountryVal] = useState(false)
-    const [shippingPostalVal, setShippingPostalVal] = useState(false)
-    const [shippingPhoneVal, setShippingPhoneVal] = useState(false)
+    const [profiles, setProfiles] = useState(true);
 
     const profile = useSelector((state) => state.profile)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-
-    setFirstNameVal(false)
-    setLastNameVal(false)
-    setPasswordVal(false)
-
-    setCCNameVal(false)
-    setCCNumberVal(false)
-    setCCExpMonthVal(false)
-    setCCExpYearVal(false)
-    setCCCVVVal(false)
-
-    setCCBill1Val(false)
-    setCCBill2Val(false)
-    setCCBillCityVal(false)
-    setCCBillStateVal(false)
-    setCCBillCountryVal(false)
-    setCCBillPostalVal(false)
-    setCCBillPhoneVal(false)
-
-    setShippingNameVal(false)
-    setShipping1Val(false)
-    setShipping2Val(false)
-    setShippingCityVal(false)
-    setShippingStateVal(false)
-    setShippingCountryVal(false)
-    setShippingPostalVal(false)
-    setShippingPhoneVal(false)
-
-  }, [props]);
+    
+    }, [props]);
     
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
-    props.closeImpExpProfile();
+        props.closeImpExpProfile();
         dispatch(allActions.profileActions.setInfo("clear", ""))
     }
     
@@ -148,17 +104,31 @@ export default function ImpExpProfile(props) {
 
     const handleChangeImportType = (event) => {
         setIsImportAppend(event.target.value == "append");
-    };    
+    };   
+    
+    const papaparseOptions = {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        transformHeader: header =>
+            header
+                .toLowerCase()
+                .replace(/\W/g, '_')
+    }
 
-    const readCSV = (e) => {
-        e.preventDefault()
-        const reader = new FileReader()
-        reader.onload = async (e) => { 
-            const text = (e.target.result)
-            console.log(text)
-            alert(text)
-        };
-        reader.readAsText(e.target.files[0])
+    // const readCSV = (e) => {
+    //     e.preventDefault()
+    //     const reader = new FileReader()
+    //     reader.onload = async (e) => { 
+    //         const text = (e.target.result)
+    //         console.log(text)
+    //         alert(text)
+    //     };
+    //     reader.readAsText(e.target.files[0])
+    // }
+    const readCSV = (data, fileInfo, originalFile) => {
+        console.dir(data, fileInfo, originalFile);
+        props.importProfile(data, isImportAppend);
     }
     
     return(
@@ -186,19 +156,40 @@ export default function ImpExpProfile(props) {
             </AppBar>
             { isImport && 
                 <>
-                    <FormControl component="fieldset" style={{ marginLeft: '80px', marginTop: '30px' }}>
-                        <RadioGroup aria-label="gender" defaultValue="female" name="rbg-import-type" onChange={handleChangeImportType}>
+                    <FormControl component="fieldset" className="w-100">
+                        <RadioGroup aria-label="gender" defaultValue="female" name="rbg-import-type" onChange={handleChangeImportType} style={{ marginLeft: '80px', marginTop: '30px' }}>
                             <FormControlLabel value="append" control={<Radio />} label="Append to existing data" checked={isImportAppend}/>
                             <FormControlLabel value="replace" control={<Radio />} label="Replace with new data" checked={!isImportAppend}/>
                         </RadioGroup>
-                        <Stack direction="row" alignItems="center" spacing={4} className="align-items-baseline m-4">
-                            <label htmlFor="importProfiles">
+                        <CSVReader
+                            cssClass="csv-reader-input"
+                            label="Select CSV with secret Death Star statistics"
+                            onFileLoaded={readCSV}
+                            // onError={this.handleDarkSideForce}
+                            parserOptions={papaparseOptions}
+                            inputId="ObiWan"
+                            inputName="ObiWan"
+                            inputStyle={{color: 'red', marginTop: '20px', marginBottom: '20px' }}
+                        />
+                        {/* <div className="d-flex justify-content-center mb-4" spacing={4}>
+                            <Button variant="contained" color="primary">
+                                <span style={{ color: 'white' }}>Import</span>
+                            </Button>
+                            <Button variant="contained" color="success" onClick={handleClose}>
+                                <span style={{ color: 'white' }}>Close</span>
+                            </Button>
+                        </div> */}
+                        <Stack direction="row" alignItems="center" spacing={4} className="d-flex justify-content-center mb-4" >
+                            {/* <label htmlFor="importProfiles">
                                 <Input accept=".csv" id="importProfiles" type="file" onChange={readCSV} />
-                                <Button variant="contained" component="span" color="primary">
+                                <Button variant="contained" color="primary">
                                     <span style={{ color: 'white' }}>Import</span>
                                 </Button>
-                            </label>
-                            <Button variant="contained" component="span" color="success" onClick={handleClose}>
+                            </label> */}
+                            <Button variant="contained" color="primary">
+                                <span style={{ color: 'white' }}>Save</span>
+                            </Button>
+                            <Button variant="contained" color="success" onClick={handleClose}>
                                 <span style={{ color: 'white' }}>Close</span>
                             </Button>
                         </Stack>
@@ -208,10 +199,10 @@ export default function ImpExpProfile(props) {
             { !isImport && 
                 <FormControl component="fieldset" style={{ marginLeft: '80px', marginTop: '30px' }}>
                     <Stack direction="row" alignItems="center" spacing={4} className="align-items-baseline m-4">
-                        <Button variant="contained" component="span" color="primary">
+                        <Button variant="contained" color="primary">
                             <span style={{ color: 'white' }}>Export</span>
                         </Button>
-                        <Button variant="contained" component="span" color="success" onClick={handleClose}>
+                        <Button variant="contained" color="success" onClick={handleClose}>
                             <span style={{ color: 'white' }}>Close</span>
                         </Button>
                     </Stack>
