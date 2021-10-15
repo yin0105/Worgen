@@ -22,11 +22,9 @@ import { dataTable } from "../../variables/general.jsx";
 
 import { cardTitle } from "../../assets/jss/material-dashboard-pro-react.jsx";
 import { AddCircle, ImportExport } from "@material-ui/icons";
-// import CreateProfile from "../../components/Modal/CreateProfile";
 
-import ReactDOM from 'react-dom';
-// import Modal from 'react-modal';
 import CreateProfile from "../../components/Modal/CreateProfile";
+import ImpExpProfile from "../../components/Modal/ImpExpProfile";
 import { MDBDataTable } from 'mdbreact';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
@@ -93,11 +91,15 @@ const Styles = styled.div `
   
 // class AllProfiles extends React.Component {
 export default function AllProfiles() {
-  const handleOpen = () => setOpenCreateProfile(true);
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
+  const [openImpExpProfile, setOpenImpExpProfile] = useState(false);
 
   const closeCreateProfile = () => {
     setOpenCreateProfile(false);
+  }
+
+  const closeImpExpProfile = () => {
+    setOpenImpExpProfile(false);
   }
   // const [data, setData] = useState(
   //   dataTable.dataRows.map((prop, key) => {
@@ -254,7 +256,6 @@ export default function AllProfiles() {
     ]
   };
 
-  // handleClose = () => this.setState({showCreateProfileModal: false});
 
     // const { classes } = this.props;
     return (
@@ -263,7 +264,7 @@ export default function AllProfiles() {
           <Button
             round
             simple
-            onClick={handleOpen}
+            onClick={() => setOpenCreateProfile(true)}
             className="like"
             style={headerButtonStyles}
           >
@@ -272,7 +273,7 @@ export default function AllProfiles() {
           <Button
             round
             simple
-            onClick={handleOpen}
+            onClick={() => setOpenImpExpProfile(true)}
             className="like"
             style={headerButtonStyles}
           >
@@ -298,11 +299,9 @@ export default function AllProfiles() {
             </CardBody>
           </Card>
         </GridItem>
-        <GridItem>
-          
-          {/* <CreateProfile /> */}
-        </GridItem>
+
         <CreateProfile open={openCreateProfile} closeCreateProfile={closeCreateProfile}/>
+        <ImpExpProfile open={openImpExpProfile} closeImpExpProfile={closeImpExpProfile}/>
         
         {/* <Modal
           open={open}

@@ -188,7 +188,7 @@ var dashRoutes = [
   // { path: "/widgets", name: "Widgets", icon: WidgetsIcon, component: Widgets },
   // { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   // { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
-  { redirect: true, path: "/", pathTo: "/profile/list", name: "List Profiles" }
+  { redirect: true, path: "/", pathTo: "/profile", name: "Profile" }
 
 ];
 export default dashRoutes;
