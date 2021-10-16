@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, InputLabel, Typography, Modal, AppBar, Tabs, Tab, MenuItem, FormControl, Select, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Box, InputLabel, Typography, Modal, AppBar, Tabs, Tab, MenuItem, FormControl, Select, Checkbox, FormControlLabel } from '@mui/material';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -310,13 +310,63 @@ export default function CreateProfile(props) {
           <TabPanel value={value} index={0} dir={theme.direction}>
             <GridContainer>
               <GridItem xs={6} sm={6}>
-                <TextField id="first_name" label="First Name" variant="outlined" value={ profile.firstName } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("firstName", e.target.value))} />
+                <CustomInput
+                  success={firstNameVal}
+                  error={!firstNameVal}
+                  id="first_name"
+                  labelText="First Name"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  helpText={`this field must contain at least 1 characters and be less than 36` }
+                  style={ inputStyle }
+                  inputProps={{
+                    onChange: event => {
+                      setFirstNameVal(change(event, "First Name", "length", 0, 1, 36)),
+                      dispatch(allActions.profileActions.setInfo("firstName", event.target.value))                          
+                    },
+                    type: "text",
+                    value: profile.firstName
+                  }}
+                />
               </GridItem>
               <GridItem xs={6} sm={6}>
-                <TextField id="last_name" label="Last Name" variant="outlined" value={ profile.lastName } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("lastName", e.target.value))} />
+                <CustomInput
+                  success={lastNameVal}
+                  error={!lastNameVal}
+                  id="last_name"
+                  labelText="Last Name"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  inputProps={{
+                    onChange: event => {
+                      setLastNameVal(change(event, "Last Name", "length", 0 , 1, 36)),
+                      dispatch(allActions.profileActions.setInfo("lastName", event.target.value))
+                    },
+                    type: "text",
+                    value: profile.lastName
+                  }}
+                />
               </GridItem>
               <GridItem xs={12} sm={12}>
-                <TextField id="password" label="Password" variant="outlined" value={ profile.password } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("password", e.target.value))} />
+                <CustomInput
+                  success={passwordVal}
+                  error={!passwordVal}
+                  id="password"
+                  labelText="Password"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  inputProps={{
+                    onChange: event => {
+                      setPasswordVal(change(event, "Password", "length", 0 , 6, 24)),
+                      dispatch(allActions.profileActions.setInfo("password", event.target.value))
+                    },
+                    type: "password",
+                    value: profile.password
+                  }}
+                />
               </GridItem>
             </GridContainer>
           </TabPanel>
@@ -326,11 +376,11 @@ export default function CreateProfile(props) {
           <TabPanel value={value} index={1} dir={theme.direction}>
             <GridContainer>
               <GridItem xs={6} sm={6}>
-                <FormControl fullWidth className="mb-3">
-                  <InputLabel>Card Type</InputLabel>
+                <FormControl variant="standard" sx={{ width: 1/1 }}>
+                  <InputLabel id="demo-simple-select-standard-label">Card Type</InputLabel>
                   <Select
-                    // labelId="demo-simple-select-standard-label"
-                    id="card_type"
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
                     // value={age}
                     // onChange={handleChange}
                     label="Card Type"
@@ -366,30 +416,10 @@ export default function CreateProfile(props) {
               </GridItem>
 
               <GridItem xs={6} sm={6}>
-                <FormControlLabel control={<Checkbox id="one_checkout" />} label="Only One Checkout" className="mb-3 mt-2"/>
+                <FormControlLabel control={<Checkbox />} label="Only One Checkout" sx={{ mt: 2 }}/>
               </GridItem>
 
               <GridItem xs={12} sm={12}>
-                <TextField id="cc_number" label="Credit Card Number" variant="outlined" value={ profile.ccNumber } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccNumber", e.target.value))} />
-              </GridItem>
-
-              <GridItem xs={8} sm={8}>
-                <TextField id="cc_name" label="Full Name on Credit Card" variant="outlined" value={ profile.ccName } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccName", e.target.value))} />
-              </GridItem>
-
-              <GridItem xs={4} sm={4}>
-                <TextField id="cc_cvv" label="CC CVV" variant="outlined" value={ profile.ccCVV } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccCVV", e.target.value))} />
-              </GridItem>
-
-              <GridItem xs={6} sm={6}>
-                <TextField id="cc_exp_month" label="CC Expiration Month" variant="outlined" value={ profile.ccExpMonth } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccExpMonth", e.target.value))} />
-              </GridItem>
-
-              <GridItem xs={6} sm={6}>
-                <TextField id="cc_exp_year" label="CC Expiration Year" variant="outlined" value={ profile.ccExpYear } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccExpYear", e.target.value))} />
-              </GridItem>
-
-              {/* <GridItem xs={12} sm={12}>
                 <CustomInput
                   success={ccNameVal}
                   error={!ccNameVal}
@@ -487,7 +517,7 @@ export default function CreateProfile(props) {
                     value: profile.ccCVV
                   }}
                 />
-              </GridItem> */}
+              </GridItem>
             </GridContainer>                
           </TabPanel>
 
