@@ -1,21 +1,17 @@
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import Box from '@mui/material/Box';
+import { Box, InputLabel, Typography, Modal, AppBar, Tabs, Tab, MenuItem, FormControl, Select, Checkbox, FormControlLabel } from '@mui/material';
 import { Button } from 'react-bootstrap';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import { FormLabel, InputAdornment } from "@material-ui/core";
 
 import GridContainer from "../Grid/GridContainer.jsx";
 import GridItem from "../Grid/GridItem.jsx";
 import CustomInput from "../CustomInput/CustomInput.jsx";
 import allActions from "../../redux/actions"
+
 
 const style = {
     position: 'absolute',
@@ -28,6 +24,7 @@ const style = {
     borderRadius: '20px',
     boxShadow: 24,
     p: 0,
+    color: 'black'
 };
 
 const inputStyle = {
@@ -378,6 +375,50 @@ export default function CreateProfile(props) {
 
           <TabPanel value={value} index={1} dir={theme.direction}>
             <GridContainer>
+              <GridItem xs={6} sm={6}>
+                <FormControl variant="standard" sx={{ width: 1/1 }}>
+                  <InputLabel id="demo-simple-select-standard-label">Card Type</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    // value={age}
+                    // onChange={handleChange}
+                    label="Card Type"
+                  >                    
+                    <MenuItem value={'0% Intro APR'}>0% Intro APR</MenuItem>
+                    <MenuItem value={'Airline & Miles'}>Airline &amp; Miles</MenuItem>
+                    <MenuItem value={'Bad Credit'}>Bad Credit</MenuItem>
+                    <MenuItem value={'Balance Transfer'}>Balance Transfer</MenuItem>
+                    <MenuItem value={'Canadian Cards'}>Canadian Cards</MenuItem>
+                    <MenuItem value={'Cash Back'}>Cash Back</MenuItem>
+                    <MenuItem value={'Excellent Credit'}>Excellent Credit</MenuItem>
+                    <MenuItem value={'Fair Credit'}>Fair Credit</MenuItem>
+                    <MenuItem value={'Featured Cards'}>Featured Cards</MenuItem>
+                    <MenuItem value={'Gas Rewards'}>Gas Rewards</MenuItem>
+                    <MenuItem value={'Good Credit'}>Good Credit</MenuItem>
+                    <MenuItem value={'Hotel Rewards'}>Hotel Rewards</MenuItem>
+                    <MenuItem value={'Limited or No Credit'}>Limited or No Credit</MenuItem>
+                    <MenuItem value={'Low Ongoing Rate'}>Low Ongoing Rate</MenuItem>
+                    <MenuItem value={'Mastercard'}>Mastercard</MenuItem>
+                    <MenuItem value={'Military & Govt'}>Military &amp; Govt</MenuItem>
+                    <MenuItem value={'No Annual Fee'}>No Annual Fee</MenuItem>
+                    <MenuItem value={'No Foreign Fee'}>No Foreign Fee</MenuItem>
+                    <MenuItem value={'Premium'}>Premium</MenuItem>
+                    <MenuItem value={'Prepaid & Debit'}>Prepaid &amp; Debit</MenuItem>
+                    <MenuItem value={'Rewards Cards'}>Rewards Cards</MenuItem>
+                    <MenuItem value={'Secured Cards'}>Secured Cards</MenuItem>
+                    <MenuItem value={'Small Business'}>Small Business</MenuItem>
+                    <MenuItem value={'Student'}>Student</MenuItem>
+                    <MenuItem value={'Travel Rewards'}>Travel Rewards</MenuItem>
+                    <MenuItem value={'Visa'}>Visa</MenuItem>
+                  </Select>
+                </FormControl>
+              </GridItem>
+
+              <GridItem xs={6} sm={6}>
+                <FormControlLabel control={<Checkbox />} label="Only One Checkout" sx={{ mt: 2 }}/>
+              </GridItem>
+
               <GridItem xs={12} sm={12}>
                 <CustomInput
                   success={ccNameVal}
