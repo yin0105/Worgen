@@ -121,6 +121,12 @@ const setInfo = (key, value) => {
                 type: "CLEAR_PROFILE",
                 payload: ""
             };
+        case "set":
+            return {
+                type: "SET_PROFILE",
+                payload: value
+            };
+        
 
     }
 }

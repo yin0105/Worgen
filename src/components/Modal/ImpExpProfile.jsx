@@ -15,7 +15,9 @@ import CustomInput from "../CustomInput/CustomInput.jsx";
 import allActions from "../../redux/actions"
 
 import { styled } from '@mui/material/styles';
-import CSVReader from 'react-csv-reader'
+import CSVReader from 'react-csv-reader';
+const {ipcRenderer} = window.require('electron')
+
 
 const style = {
     position: 'absolute',
@@ -43,7 +45,7 @@ const style = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center'
-    }
+    }    
 };
 
 const Input = styled('input')({
@@ -68,6 +70,12 @@ const buttonStyles = {
 
 };
 
+// const w = new BrowserWindow({
+//     webPreferences: {
+//         enableRemoteModule: true
+//     }
+// })
+
 
 export default function ImpExpProfile(props) {
 
@@ -90,13 +98,13 @@ export default function ImpExpProfile(props) {
         dispatch(allActions.profileActions.setInfo("clear", ""))
     }
     
-    const handleChange = (event, newValue) => {
-    setValue(newValue);
-    };
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    // };
 
-    const handleChangeIndex = (index) => {
-    setValue(index);
-    };
+    // const handleChangeIndex = (index) => {
+    //     setValue(index);
+    // };
 
     const handleChangeImpExp = (event) => {
         setIsImport(event.target.value == "import");
@@ -106,6 +114,25 @@ export default function ImpExpProfile(props) {
         setIsImportAppend(event.target.value == "append");
     };   
     
+    const handleExportProfile = () => {
+        
+        // console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+
+        // ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        //     console.log(arg) // prints "pong"
+        // })
+        // ipcRenderer.send('asynchronous-message', 'ping')
+        
+        ipcRenderer.on('saveFile-reply', (event, res) => {
+            console.log(res) // prints "pong"
+            if (!res.canceled) {
+                console.log("filePath = ", res.filePath);
+            }
+        })
+        ipcRenderer.send('saveFile', '')
+        
+    };
+
     const papaparseOptions = {
         header: true,
         dynamicTyping: true,
@@ -199,7 +226,7 @@ export default function ImpExpProfile(props) {
             { !isImport && 
                 <FormControl component="fieldset" style={{ marginLeft: '80px', marginTop: '30px' }}>
                     <Stack direction="row" alignItems="center" spacing={4} className="align-items-baseline m-4">
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={handleExportProfile}>
                             <span style={{ color: 'white' }}>Export</span>
                         </Button>
                         <Button variant="contained" color="success" onClick={handleClose}>

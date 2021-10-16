@@ -117,6 +117,8 @@ const profile = (state = {}, action) => {
             }
         case "CLEAR_PROFILE":
             return {}
+        case "SET_PROFILE":
+            return action.payload
         default:
             return state
     }

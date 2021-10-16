@@ -1,7 +1,9 @@
-const path = require('path');
-
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
+// const url = require('url') 
+const path = require('path') 
+const {ipcMain} = require('electron') 
+
 
 function createWindow() {
   // Create the browser window.
@@ -10,6 +12,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     },
   });
 
@@ -23,10 +27,46 @@ function createWindow() {
       // `file://${path.join(__dirname, '../build/index.html')}`
   );
   // Open the DevTools.
-  // if (isDev) {
-  //   win.webContents.openDevTools({ mode: 'detach' });
-  // }
+  if (isDev) {
+    win.webContents.openDevTools({ mode: 'detach' });
+  }
 }
+
+ipcMain.on('saveFile', (event, path) => { 
+  const {dialog} = require('electron') 
+  const fs = require('fs') 
+  console.log("=== path = ", path)
+
+  const options = {
+    defaultPath: app.getPath('documents') + '/electron-tutorial-app.csv',
+    filters: [
+      { name: 'CSV file', extension: ['csv'] },
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+      { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+      { name: 'Custom File Type', extensions: ['as'] },
+      { name: 'All Files', extensions: ['*'] }
+    ],
+    buttonLabel: 'Export',
+  }
+  
+  dialog.showSaveDialog(null, options).then(
+    res => {
+      console.log(res);
+      event.reply('saveFile-reply', res)
+    }
+  )
+  
+}) 
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.reply('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.returnValue = 'pong'
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

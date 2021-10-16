@@ -823,7 +823,11 @@ export default function CreateProfile(props) {
           </TabPanel>
         </SwipeableViews>
         <div className="d-flex mb-3" style={{ justifyContent: "space-evenly" }}>
-          <Button variant="primary" size="sm">Save</Button>
+          <Button variant="primary" size="sm">
+            { props.openMode == 'create' && <span>Create</span> }
+            { props.openMode == 'edit' && <span>Save</span> }
+            {/* Save */}
+          </Button>
           <Button variant="success" size="md" onClick={handleClose}>Close</Button>
         </div>
       </Box>
