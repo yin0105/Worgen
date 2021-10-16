@@ -331,8 +331,8 @@ export default function CreateProfile(props) {
                   <Select
                     // labelId="demo-simple-select-standard-label"
                     id="card_type"
-                    // value={age}
-                    // onChange={handleChange}
+                    value={ profile.cardType }
+                    onChange={(e) => dispatch(allActions.profileActions.setInfo("cardType", e.target.value ))}
                     label="Card Type"
                   >                    
                     <MenuItem value={'0% Intro APR'}>0% Intro APR</MenuItem>
@@ -366,7 +366,7 @@ export default function CreateProfile(props) {
               </GridItem>
 
               <GridItem xs={6} sm={6}>
-                <FormControlLabel control={<Checkbox id="one_checkout" />} label="Only One Checkout" className="mb-3 mt-2"/>
+                <FormControlLabel control={<Checkbox id="one_checkout" checked={ profile.oneCheckout } />} label="Only One Checkout" className="mb-3 mt-2" onChange={(e) => dispatch(allActions.profileActions.setInfo("oneCheckout", e.target.checked ))} />
               </GridItem>
 
               <GridItem xs={12} sm={12}>

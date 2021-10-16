@@ -116,6 +116,17 @@ const setInfo = (key, value) => {
                 type: "SET_PROFILE_SHIPPINGPHONE",
                 payload: value
             };
+        case "oneCheckout":
+            return {
+                type: "SET_PROFILE_ONECHECKOUT",
+                payload: value
+            };
+        case "cardType":
+            return {
+                type: "SET_PROFILE_CARDTYPE",
+                payload: value
+            };
+
         case "clear":
             return {
                 type: "CLEAR_PROFILE",
@@ -126,6 +137,7 @@ const setInfo = (key, value) => {
                 type: "SET_PROFILE",
                 payload: value
             };
+        
         
 
     }

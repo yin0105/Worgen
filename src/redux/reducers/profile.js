@@ -115,6 +115,18 @@ const profile = (state = {}, action) => {
                 ...state,
                 shippingPhone: action.payload
             }
+        case "SET_PROFILE_ONECHECKOUT":
+            return {
+                ...state,
+                oneCheckout: action.payload
+            }
+        case "SET_PROFILE_CARDTYPE":
+            return {
+                ...state,
+                cardType: action.payload
+            }
+            
+
         case "CLEAR_PROFILE":
             return {}
         case "SET_PROFILE":
