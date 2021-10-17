@@ -171,6 +171,10 @@ export default function CreateProfile(props) {
 
           <TabPanel value={value} index={0} dir={theme.direction}>
             <GridContainer>
+              <GridItem xs={12} sm={12}>
+                <TextField id="email" label="Email Address" variant="outlined" value={ profile.email } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("email", e.target.value))} />
+              </GridItem>
+
               <GridItem xs={6} sm={6}>
                 <TextField id="first_name" label="First Name" variant="outlined" value={ profile.firstName } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("firstName", e.target.value))} />
               </GridItem>
@@ -184,7 +188,7 @@ export default function CreateProfile(props) {
               </GridItem>
 
               <GridItem xs={5} sm={5}>
-                <Button variant="secondary" size="md" onClick={generatePassword}>Generate Password</Button>
+                <Button variant="info" size="md" onClick={generatePassword}>Generate Password</Button>
               </GridItem>
             </GridContainer>
           </TabPanel>

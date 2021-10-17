@@ -1,160 +1,165 @@
 const setInfo = (key, value) => {
     switch(key) {
+        case "email":
+            return {
+                type: "SET_EMAIL",
+                payload: value
+            };
         case "firstName":
             return {
-                type: "SET_PROFILE_FIRSTNAME",
+                type: "SET_FIRSTNAME",
                 payload: value
             };
         case "lastName":
             return {
-                type: "SET_PROFILE_LASTNAME",
+                type: "SET_LASTNAME",
                 payload: value
             };
         case "password":
             return {
-                type: "SET_PROFILE_PASSWORD",
+                type: "SET_PASSWORD",
                 payload: value
             };
         
         case "ccName":
             return {
-                type: "SET_PROFILE_CCNAME",
+                type: "SET_CCNAME",
                 payload: value
             };
         case "ccNumber":
             return {
-                type: "SET_PROFILE_CCNUMBER",
+                type: "SET_CCNUMBER",
                 payload: value
             };
         case "ccExpMonth":
             return {
-                type: "SET_PROFILE_CCEXPMONTH",
+                type: "SET_CCEXPMONTH",
                 payload: value
             };
         case "ccExpYear":
             return {
-                type: "SET_PROFILE_CCEXPYEAR",
+                type: "SET_CCEXPYEAR",
                 payload: value
             };
         case "ccCVV":
             return {
-                type: "SET_PROFILE_CCCVV",
+                type: "SET_CCCVV",
                 payload: value
             };
         case "ccBillName":
             return {
-                type: "SET_PROFILE_BILLINGNAME",
+                type: "SET_BILLINGNAME",
                 payload: value
             };
         case "ccBill1":
             return {
-                type: "SET_PROFILE_CCBILL1",
+                type: "SET_CCBILL1",
                 payload: value
             };
         case "ccBill2":
             return {
-                type: "SET_PROFILE_CCBILL2",
+                type: "SET_CCBILL2",
                 payload: value
             };
         case "ccBill3":
             return {
-                type: "SET_PROFILE_CCBILL3",
+                type: "SET_CCBILL3",
                 payload: value
             };
         case "ccBillCity":
             return {
-                type: "SET_PROFILE_CCBILLCITY",
+                type: "SET_CCBILLCITY",
                 payload: value
             };
         case "ccBillState":
             return {
-                type: "SET_PROFILE_CCBILLSTATE",
+                type: "SET_CCBILLSTATE",
                 payload: value
             };
         case "ccBillCountry":
             return {
-                type: "SET_PROFILE_CCBILLCOUNTRY",
+                type: "SET_CCBILLCOUNTRY",
                 payload: value
             };
         case "ccBillPostal":
             return {
-                type: "SET_PROFILE_CCBILLPOSTAL",
+                type: "SET_CCBILLPOSTAL",
                 payload: value
             };
         case "ccBillPhone":
             return {
-                type: "SET_PROFILE_CCBILLPHONE",
+                type: "SET_CCBILLPHONE",
                 payload: value
             };
         case "sameBillingShipping":
             return {
-                type: "SET_PROFILE_SAMEBILLINGSHIPPING",
+                type: "SET_SAMEBILLINGSHIPPING",
                 payload: value
             };
         case "shippingName":
             return {
-                type: "SET_PROFILE_SHIPPINGNAME",
+                type: "SET_SHIPPINGNAME",
                 payload: value
             };
         case "shipping1":
             return {
-                type: "SET_PROFILE_SHIPPING1",
+                type: "SET_SHIPPING1",
                 payload: value
             };
         case "shipping2":
             return {
-                type: "SET_PROFILE_SHIPPING2",
+                type: "SET_SHIPPING2",
                 payload: value
             };
         case "shipping3":
             return {
-                type: "SET_PROFILE_SHIPPING3",
+                type: "SET_SHIPPING3",
                 payload: value
             };
         case "shippingCity":
             return {
-                type: "SET_PROFILE_SHIPPINGCITY",
+                type: "SET_SHIPPINGCITY",
                 payload: value
             };
         case "shippingState":
             return {
-                type: "SET_PROFILE_SHIPPINGSTATE",
+                type: "SET_SHIPPINGSTATE",
                 payload: value
             };
         case "shippingCountry":
             return {
-                type: "SET_PROFILE_SHIPPINGCOUNTRY",
+                type: "SET_SHIPPINGCOUNTRY",
                 payload: value
             };
         case "shippingPostal":
             return {
-                type: "SET_PROFILE_SHIPPINGPOSTAL",
+                type: "SET_SHIPPINGPOSTAL",
                 payload: value
             };
         case "shippingPhone":
             return {
-                type: "SET_PROFILE_SHIPPINGPHONE",
+                type: "SET_SHIPPINGPHONE",
                 payload: value
             };
         case "oneCheckout":
             return {
-                type: "SET_PROFILE_ONECHECKOUT",
+                type: "SET_ONECHECKOUT",
                 payload: value
             };
         case "cardType":
             return {
-                type: "SET_PROFILE_CARDTYPE",
+                type: "SET_CARDTYPE",
                 payload: value
             };
 
         case "clear":
             return {
-                type: "CLEAR_PROFILE",
+                type: "CLEAR",
                 payload: ""
             };
         case "set":
             return {
-                type: "SET_PROFILE",
+                type: "SET",
                 payload: value
             };
         

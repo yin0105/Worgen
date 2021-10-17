@@ -1,91 +1,96 @@
 const profile = (state = {}, action) => {
     switch(action.type){
-        case "SET_PROFILE_FIRSTNAME":
+        case "SET_EMAIL":
+            return {
+                ...state,
+                email: action.payload
+            }
+        case "SET_FIRSTNAME":
             return {
                 ...state,
                 firstName: action.payload
             }
-        case "SET_PROFILE_LASTNAME":
+        case "SET_LASTNAME":
             return {
                 ...state,
                 lastName: action.payload
             }
-        case "SET_PROFILE_PASSWORD":
+        case "SET_PASSWORD":
             return {
                 ...state,
                 password: action.payload
             }
-        case "SET_PROFILE_CCNAME":
+        case "SET_CCNAME":
             return {
                 ...state,
                 ccName: action.payload
             }
-        case "SET_PROFILE_CCNUMBER":
+        case "SET_CCNUMBER":
             return {
                 ...state,
                 ccNumber: action.payload
             }
-        case "SET_PROFILE_CCEXPMONTH":
+        case "SET_CCEXPMONTH":
             return {
                 ...state,
                 ccExpMonth: action.payload
             }
-        case "SET_PROFILE_CCEXPYEAR":
+        case "SET_CCEXPYEAR":
             return {
                 ...state,
                 ccExpYear: action.payload
             }
-        case "SET_PROFILE_CCCVV":
+        case "SET_CCCVV":
             return {
                 ...state,
                 ccCVV: action.payload
             }
-        case "SET_PROFILE_BILLINGNAME":
+        case "SET_BILLINGNAME":
             return {
                 ...state,
                 ccBillName: action.payload
             }
-        case "SET_PROFILE_CCBILL1":
+        case "SET_CCBILL1":
             return {
                 ...state,
                 ccBill1: action.payload
             }
-        case "SET_PROFILE_CCBILL2":
+        case "SET_CCBILL2":
             return {
                 ...state,
                 ccBill2: action.payload
             }
-        case "SET_PROFILE_CCBILL3":
+        case "SET_CCBILL3":
             return {
                 ...state,
                 ccBill3: action.payload
             }
-        case "SET_PROFILE_CCBILLCITY":
+        case "SET_CCBILLCITY":
             return {
                 ...state,
                 ccBillCity: action.payload
             }
-        case "SET_PROFILE_CCBILLSTATE":
+        case "SET_CCBILLSTATE":
             return {
                 ...state,
                 ccBillState: action.payload
             }
-        case "SET_PROFILE_CCBILLCOUNTRY":
+        case "SET_CCBILLCOUNTRY":
             return {
                 ...state,
                 ccBillCountry: action.payload
             }
-        case "SET_PROFILE_CCBILLPOSTAL":
+        case "SET_CCBILLPOSTAL":
             return {
                 ...state,
                 ccBillPostal: action.payload
             }
-        case "SET_PROFILE_CCBILLPHONE":
+        case "SET_CCBILLPHONE":
             return {
                 ...state,
                 ccBillPhone: action.payload
             }
-        case "SET_PROFILE_SAMEBILLINGSHIPPING":
+        case "SET_SAMEBILLINGSHIPPING":
             if (action.payload) {
                 return {
                     ...state,
@@ -106,66 +111,66 @@ const profile = (state = {}, action) => {
                     sameBillingShipping: action.payload
                 }
             }
-        case "SET_PROFILE_SHIPPINGNAME":
+        case "SET_SHIPPINGNAME":
             return {
                 ...state,
                 shippingName: action.payload
             }
-        case "SET_PROFILE_SHIPPING1":
+        case "SET_SHIPPING1":
             return {
                 ...state,
                 shipping1: action.payload
             }
-        case "SET_PROFILE_SHIPPING2":
+        case "SET_SHIPPING2":
             return {
                 ...state,
                 shipping2: action.payload
             }
-        case "SET_PROFILE_SHIPPING3":
+        case "SET_SHIPPING3":
             return {
                 ...state,
                 shipping3: action.payload
             }
-        case "SET_PROFILE_SHIPPINGCITY":
+        case "SET_SHIPPINGCITY":
             return {
                 ...state,
                 shippingCity: action.payload
             }
-        case "SET_PROFILE_SHIPPINGSTATE":
+        case "SET_SHIPPINGSTATE":
             return {
                 ...state,
                 shippingState: action.payload
             }
-        case "SET_PROFILE_SHIPPINGCOUNTRY":
+        case "SET_SHIPPINGCOUNTRY":
             return {
                 ...state,
                 shippingCountry: action.payload
             }
-        case "SET_PROFILE_SHIPPINGPOSTAL":
+        case "SET_SHIPPINGPOSTAL":
             return {
                 ...state,
                 shippingPostal: action.payload
             }
-        case "SET_PROFILE_SHIPPINGPHONE":
+        case "SET_SHIPPINGPHONE":
             return {
                 ...state,
                 shippingPhone: action.payload
             }
-        case "SET_PROFILE_ONECHECKOUT":
+        case "SET_ONECHECKOUT":
             return {
                 ...state,
                 oneCheckout: action.payload
             }
-        case "SET_PROFILE_CARDTYPE":
+        case "SET_CARDTYPE":
             return {
                 ...state,
                 cardType: action.payload
             }
             
 
-        case "CLEAR_PROFILE":
+        case "CLEAR":
             return {}
-        case "SET_PROFILE":
+        case "SET":
             return action.payload
         default:
             return state

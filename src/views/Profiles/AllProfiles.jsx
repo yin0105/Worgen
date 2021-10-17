@@ -102,6 +102,22 @@ export default function AllProfiles() {
   const [openMode, setOpenMode] = useState('create');
 
   const dispatch = useDispatch()
+  
+  const addActions = (prof) => {
+    return prof.map((el, key) => {
+      return {
+        ...el,
+        edit_action: 
+          <Button color="success" key={1} onClick={() => editProfile(key)}>
+            <Edit />
+          </Button>,
+        remove_action:
+          <Button color="danger" key={2} onClick={() => removeProfile(key)}>
+            <Close />
+          </Button>
+      }
+    });
+  }
 
   const closeCreateProfile = () => {
     setOpenCreateProfile(false);
@@ -123,26 +139,53 @@ export default function AllProfiles() {
 
   }
 
-  const addActions = (prof) => {
-    return prof.map((el, key) => {
-      return {
-        ...el,
-        action: 
-          (<>
-            <Button color="success" key={1} onClick={() => editProfile(key)}>
-              <Edit />
-            </Button>
-            <Button color="danger" key={2} onClick={() => removeProfile(key)}>
-              <Close />
-            </Button>
-          </>)
-      }
-    });
-  }
-
-  const importProfile = (data, isImportAppend) => {
+  const importProfile = (rawData, isImportAppend) => {
     let mergedProfiles = profiles;
     console.log("isAppend = ", isImportAppend);
+
+    let data = rawData.map(el => {
+      let newEl = {};
+      newEl["email"] = el["email_address"];
+      newEl["password"] = el["password"];      
+      newEl["ccName"] = el["name_on_card"];
+      newEl["ccNumber"] = el["card_number"];
+      newEl["ccExpMonth"] = el["expiration_month"];
+      newEl["ccExpYear"] = el["expiration_year"];
+      newEl["ccCVV"] = el["cvv"];
+      newEl["ccBillName"] = el["billing_name"];
+      newEl["ccBill1"] = el["billing_address"];
+      newEl["ccBill2"] = el["billing_address_2"];
+      newEl["ccBill3"] = el["billing_address_3"];
+      newEl["ccBillCity"] = el["billing_city"];
+      newEl["ccBillState"] = el["billing_state"];
+      newEl["ccBillCountry"] = el["billing_country"];
+      newEl["ccBillPostal"] = el["billing_post_code"];
+      newEl["ccBillPhone"] = el["billing_phone"];
+      newEl["sameBillingShipping"] = el["same_billing_shipping"];
+      newEl["shippingName"] = el["shipping_name"];
+      newEl["shipping1"] = el["shipping_address"];
+      newEl["shipping2"] = el["shipping_address_2"];
+      newEl["shipping3"] = el["shipping_address_3"];
+      newEl["shippingCity"] = el["shipping_city"];
+      newEl["shippingState"] = el["shipping_state"];
+      newEl["shippingCountry"] = el["shipping_country"];
+      newEl["shippingPostal"] = el["shipping_post_code"];
+      newEl["shippingPhone"] = el["shipping_phone"];
+      newEl["oneCheckout"] = el["only_one_checkout"];
+      newEl["cardType"] = el["card_type"];
+
+      if (el["first_name"]) {
+        newEl["firstName"] = el["first_name"];
+        newEl["lastName"] = el["last_name"];
+      } else if (el["billing_name"]) {
+        newEl["firstName"] = el["billing_name"].split(" ")[0];
+        newEl["lastName"] = el["billing_name"].split(" ").length > 1 ? el["billing_name"].split(" ")[1]: "";
+      } else if (el["name_on_card"]) {
+        newEl["firstName"] = el["name_on_card"].split(" ")[0];
+        newEl["lastName"] = el["name_on_card"].split(" ").length > 1 ? el["name_on_card"].split(" ")[1]: "";
+      }
+      return newEl;
+    });
     if (isImportAppend) {
       data.map(el => {
         mergedProfiles.push(el);
@@ -196,40 +239,46 @@ export default function AllProfiles() {
               data={{
                 columns: [
                   {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                    width: 200
+                  },
+                  {
                     label: 'Name',
-                    field: 'name',
+                    field: 'ccName',
                     sort: 'asc',
                     width: 150
                   },
                   {
                     label: 'Card Number',
-                    field: '_card_number',
-                    sort: 'asc',
-                    width: 120
-                  },
-                  {
-                    label: 'Card Exp Date',
-                    field: '_card_exp_date',
+                    field: 'ccNumber',
                     sort: 'asc',
                     width: 120
                   },
                   {
                     label: 'Billing Address',
-                    field: '_bill_address',
+                    field: 'ccBill1',
                     sort: 'asc',
                     width: 200
                   },
                   {
                     label: 'Shipping Address',
-                    field: '_shipping_address',
+                    field: 'shipping1',
                     sort: 'asc',
                     width: 200
                   },
                   {
-                    label: 'Action',
-                    field: 'action',
+                    label: '',
+                    field: 'edit_action',
                     sort: 'asc',
-                    width: 80
+                    width: 50
+                  },
+                  {
+                    label: '',
+                    field: 'remove_action',
+                    sort: 'asc',
+                    width: 50
                   }
                 ],
                 rows: profiles
