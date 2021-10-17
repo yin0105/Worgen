@@ -284,7 +284,8 @@ const cardTypes = [
 ];
 
 const csvHeaders = [
-  { label: "First Name", key: "first_name" },
+  { label: "First Name", key: "firstName" },
+  { label: "Last Name", key: "lastName" },
   { label: "Email Address", key: "email" },
   { label: "Password", key: "password" },
   { label: "Name on Card", key: "ccName" },
