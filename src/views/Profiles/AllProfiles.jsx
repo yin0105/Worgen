@@ -114,12 +114,13 @@ export default function AllProfiles() {
   }
 
   const removeProfile = (index) => {
-
+    let tmpProfiles = profiles
+    tmpProfiles.splice(index, 1);
+    setProfiles(addActions(tmpProfiles));
   }
 
   const importProfile = (rawData, isImportAppend) => {
     let mergedProfiles = profiles;
-    console.log("isAppend = ", isImportAppend);
 
     let data = rawData.map(el => {
       let newEl = {};
@@ -242,13 +243,13 @@ export default function AllProfiles() {
                     label: '',
                     field: 'edit_action',
                     sort: 'asc',
-                    width: 50
+                    width: 66
                   },
                   {
                     label: '',
                     field: 'remove_action',
                     sort: 'asc',
-                    width: 50
+                    width: 66
                   }
                 ],
                 rows: profiles
