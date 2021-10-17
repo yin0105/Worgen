@@ -40,6 +40,11 @@ const profile = (state = {}, action) => {
                 ...state,
                 ccCVV: action.payload
             }
+        case "SET_PROFILE_BILLINGNAME":
+            return {
+                ...state,
+                ccBillName: action.payload
+            }
         case "SET_PROFILE_CCBILL1":
             return {
                 ...state,
@@ -49,6 +54,11 @@ const profile = (state = {}, action) => {
             return {
                 ...state,
                 ccBill2: action.payload
+            }
+        case "SET_PROFILE_CCBILL3":
+            return {
+                ...state,
+                ccBill3: action.payload
             }
         case "SET_PROFILE_CCBILLCITY":
             return {
@@ -75,6 +85,27 @@ const profile = (state = {}, action) => {
                 ...state,
                 ccBillPhone: action.payload
             }
+        case "SET_PROFILE_SAMEBILLINGSHIPPING":
+            if (action.payload) {
+                return {
+                    ...state,
+                    sameBillingShipping: action.payload,
+                    shippingName: state.ccBillName,
+                    shipping1: state.ccBill1,
+                    shipping2: state.ccBill2,
+                    shipping3: state.ccBill3,
+                    shippingCity: state.ccBillCity,
+                    shippingState: state.ccBillState,
+                    shippingCountry: state.ccBillCountry,
+                    shippingPostal: state.ccBillPostal,
+                    shippingPhone: state.ccBillPhone,
+                }                
+            } else {
+                return {
+                    ...state,
+                    sameBillingShipping: action.payload
+                }
+            }
         case "SET_PROFILE_SHIPPINGNAME":
             return {
                 ...state,
@@ -89,6 +120,11 @@ const profile = (state = {}, action) => {
             return {
                 ...state,
                 shipping2: action.payload
+            }
+        case "SET_PROFILE_SHIPPING3":
+            return {
+                ...state,
+                shipping3: action.payload
             }
         case "SET_PROFILE_SHIPPINGCITY":
             return {

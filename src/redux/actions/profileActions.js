@@ -41,6 +41,11 @@ const setInfo = (key, value) => {
                 type: "SET_PROFILE_CCCVV",
                 payload: value
             };
+        case "ccBillName":
+            return {
+                type: "SET_PROFILE_BILLINGNAME",
+                payload: value
+            };
         case "ccBill1":
             return {
                 type: "SET_PROFILE_CCBILL1",
@@ -49,6 +54,11 @@ const setInfo = (key, value) => {
         case "ccBill2":
             return {
                 type: "SET_PROFILE_CCBILL2",
+                payload: value
+            };
+        case "ccBill3":
+            return {
+                type: "SET_PROFILE_CCBILL3",
                 payload: value
             };
         case "ccBillCity":
@@ -76,6 +86,11 @@ const setInfo = (key, value) => {
                 type: "SET_PROFILE_CCBILLPHONE",
                 payload: value
             };
+        case "sameBillingShipping":
+            return {
+                type: "SET_PROFILE_SAMEBILLINGSHIPPING",
+                payload: value
+            };
         case "shippingName":
             return {
                 type: "SET_PROFILE_SHIPPINGNAME",
@@ -89,6 +104,11 @@ const setInfo = (key, value) => {
         case "shipping2":
             return {
                 type: "SET_PROFILE_SHIPPING2",
+                payload: value
+            };
+        case "shipping3":
+            return {
+                type: "SET_PROFILE_SHIPPING3",
                 payload: value
             };
         case "shippingCity":
