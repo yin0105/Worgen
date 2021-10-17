@@ -306,7 +306,7 @@ export default function CreateProfile(props) {
                     label="Card Type"
                   >
                     {
-                      countries.map((country) => <MenuItem value={country[0]}>{country[1]}</MenuItem>)
+                      countries.map((country) => <MenuItem value={country[1]}>{country[1]}</MenuItem>)
                     }
                   </Select>
                 </FormControl>
@@ -373,7 +373,7 @@ export default function CreateProfile(props) {
                     label="Card Type"
                   >
                     {
-                      countries.map((country) => <MenuItem value={country[0]}>{country[1]}</MenuItem>)
+                      countries.map((country) => <MenuItem value={country[1]}>{country[1]}</MenuItem>)
                     }
                   </Select>
                 </FormControl>
@@ -390,7 +390,7 @@ export default function CreateProfile(props) {
           </TabPanel>
         </SwipeableViews>
         <div className="d-flex mb-3" style={{ justifyContent: "space-evenly" }}>
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="md" onClick={() => props.saveProfile(profile)}>
             { props.openMode == 'create' && <span>Create</span> }
             { props.openMode == 'edit' && <span>Save</span> }
             {/* Save */}
