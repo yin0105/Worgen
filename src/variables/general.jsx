@@ -283,7 +283,40 @@ const cardTypes = [
   'Visa',
 ];
 
+const csvHeaders = [
+  { label: "First Name", key: "first_name" },
+  { label: "Email Address", key: "email" },
+  { label: "Password", key: "password" },
+  { label: "Name on Card", key: "ccName" },
+  { label: "Card Number", key: "ccNumber" },
+  { label: "Expiration Month", key: "ccExpMonth" },
+  { label: "Expiration Year", key: "ccExpYear" },
+  { label: "CVV", key: "ccCVV" },
+  { label: "Billing Name", key: "ccBillName" },
+  { label: "Billing Address", key: "ccBill1" },
+  { label: "Billing Address 2", key: "ccBill2" },
+  { label: "Billing Address 3", key: "ccBill3" },
+  { label: "Billing City", key: "ccBillCity" },
+  { label: "Billing State", key: "ccBillState" },
+  { label: "Billing Country", key: "ccBillCountry" },
+  { label: "Billing Post Code", key: "ccBillPostal" },
+  { label: "Billing Phone", key: "ccBillPhone" },
+  { label: "Same Billing/Shipping", key: "sameBillingShipping" },
+  { label: "Shipping Name", key: "shippingName" },
+  { label: "Shipping Address", key: "shipping1" },
+  { label: "Shipping Address 2", key: "shipping2" },
+  { label: "Shipping Address 3", key: "shipping3" },
+  { label: "Shipping City", key: "shippingCity" },
+  { label: "Shipping State", key: "shippingState" },
+  { label: "Shipping Country", key: "shippingCountry" },
+  { label: "Shipping Post Code", key: "shippingPostal" },
+  { label: "Shipping Phone", key: "shippingPhone" },
+  { label: "Only One Checkout", key: "oneCheckout" },
+  { label: "Card Type", key: "cardType" },
+]
+
 module.exports = {
   countries,
   cardTypes,
+  csvHeaders
 };

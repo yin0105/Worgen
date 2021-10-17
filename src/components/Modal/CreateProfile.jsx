@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, InputLabel, Typography, Modal, AppBar, Tabs, Tab, MenuItem, FormControl, Select, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { Button } from 'react-bootstrap';
+import { Box, InputLabel, Typography, Modal, AppBar, Tabs, Tab, MenuItem, FormControl, Select, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
+// import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -390,12 +390,19 @@ export default function CreateProfile(props) {
           </TabPanel>
         </SwipeableViews>
         <div className="d-flex mb-3" style={{ justifyContent: "space-evenly" }}>
-          <Button variant="primary" size="md" onClick={() => props.saveProfile(profile)}>
+          {/* <Button variant="primary" size="md" onClick={() => props.saveProfile(profile)}>
             { props.openMode == 'create' && <span>Create</span> }
             { props.openMode == 'edit' && <span>Save</span> }
             {/* Save */}
+          {/* </Button> */} 
+          {/* <Button variant="success" size="md" onClick={handleClose}>Close</Button> */}
+          <Button variant="contained" color="primary" onClick={() => props.saveProfile(profile)}>
+            { props.openMode == 'create' && <span>Create</span> }
+            { props.openMode == 'edit' && <span>Save</span> }
           </Button>
-          <Button variant="success" size="md" onClick={handleClose}>Close</Button>
+          <Button variant="contained" color="success" onClick={handleClose}>
+            <span style={{ color: 'white' }}>Close</span>
+          </Button>
         </div>
       </Box>
     </Modal>

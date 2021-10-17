@@ -262,7 +262,7 @@ export default function AllProfiles() {
       </GridItem>
 
       <CreateProfile open={openCreateProfile} closeCreateProfile={closeCreateProfile} openMode={openMode} saveProfile={saveProfile}/>
-      <ImpExpProfile open={openImpExpProfile} closeImpExpProfile={closeImpExpProfile} importProfile={importProfile}/>
+      <ImpExpProfile open={openImpExpProfile} closeImpExpProfile={closeImpExpProfile} importProfile={importProfile} profiles={profiles}/>
       
      
     </GridContainer>

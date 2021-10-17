@@ -2,21 +2,13 @@ import React, {useEffect, useState} from "react";
 import ReactDOM from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Radio, RadioGroup, FormControlLabel, FormControl, Modal, AppBar, Button, Stack } from '@mui/material';
-// import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-import { InputAdornment } from "@material-ui/core";
-import { Close, PriorityHigh } from "@material-ui/icons";
-
-import GridContainer from "../Grid/GridContainer.jsx";
-import GridItem from "../Grid/GridItem.jsx";
-import CustomInput from "../CustomInput/CustomInput.jsx";
 import allActions from "../../redux/actions"
-
 import { styled } from '@mui/material/styles';
 import CSVReader from 'react-csv-reader';
+import { CSVLink } from "react-csv";
 const {ipcRenderer} = window.require('electron')
+import { csvHeaders } from "../../variables/general";
 
 
 const style = {
@@ -70,19 +62,12 @@ const buttonStyles = {
 
 };
 
-// const w = new BrowserWindow({
-//     webPreferences: {
-//         enableRemoteModule: true
-//     }
-// })
-
 
 export default function ImpExpProfile(props) {
 
     const theme = useTheme();
     const [isImport, setIsImport] = useState(true);
     const [isImportAppend, setIsImportAppend] = useState(true);
-    const [profiles, setProfiles] = useState(true);
 
     const profile = useSelector((state) => state.profile)
 
@@ -97,14 +82,6 @@ export default function ImpExpProfile(props) {
         props.closeImpExpProfile();
         dispatch(allActions.profileActions.setInfo("clear", ""))
     }
-    
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    // };
-
-    // const handleChangeIndex = (index) => {
-    //     setValue(index);
-    // };
 
     const handleChangeImpExp = (event) => {
         setIsImport(event.target.value == "import");
@@ -116,20 +93,13 @@ export default function ImpExpProfile(props) {
     
     const handleExportProfile = () => {
         
-        // console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-        // ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        //     console.log(arg) // prints "pong"
+        // ipcRenderer.on('saveFile-reply', (event, res) => {
+        //     console.log(res)
+        //     if (!res.canceled) {
+        //         console.log("filePath = ", res.filePath);
+        //     }
         // })
-        // ipcRenderer.send('asynchronous-message', 'ping')
-        
-        ipcRenderer.on('saveFile-reply', (event, res) => {
-            console.log(res) // prints "pong"
-            if (!res.canceled) {
-                console.log("filePath = ", res.filePath);
-            }
-        })
-        ipcRenderer.send('saveFile', '')
+        // ipcRenderer.send('saveFile', '')
         
     };
 
@@ -198,24 +168,10 @@ export default function ImpExpProfile(props) {
                             inputName="ObiWan"
                             inputStyle={{color: 'red', marginTop: '20px', marginBottom: '20px' }}
                         />
-                        {/* <div className="d-flex justify-content-center mb-4" spacing={4}>
-                            <Button variant="contained" color="primary">
-                                <span style={{ color: 'white' }}>Import</span>
-                            </Button>
-                            <Button variant="contained" color="success" onClick={handleClose}>
-                                <span style={{ color: 'white' }}>Close</span>
-                            </Button>
-                        </div> */}
                         <Stack direction="row" alignItems="center" spacing={4} className="d-flex justify-content-center mb-4" >
-                            {/* <label htmlFor="importProfiles">
-                                <Input accept=".csv" id="importProfiles" type="file" onChange={readCSV} />
-                                <Button variant="contained" color="primary">
-                                    <span style={{ color: 'white' }}>Import</span>
-                                </Button>
-                            </label> */}
-                            <Button variant="contained" color="primary">
+                            {/* <Button variant="contained" color="primary">
                                 <span style={{ color: 'white' }}>Save</span>
-                            </Button>
+                            </Button> */}
                             <Button variant="contained" color="success" onClick={handleClose}>
                                 <span style={{ color: 'white' }}>Close</span>
                             </Button>
@@ -226,8 +182,14 @@ export default function ImpExpProfile(props) {
             { !isImport && 
                 <FormControl component="fieldset" style={{ marginLeft: '80px', marginTop: '30px' }}>
                     <Stack direction="row" alignItems="center" spacing={4} className="align-items-baseline m-4">
-                        <Button variant="contained" color="primary" onClick={handleExportProfile}>
-                            <span style={{ color: 'white' }}>Export</span>
+                        <Button variant="contained" color="primary">
+                            {/* <span style={{ color: 'white' }}>Export</span> */}
+                            <CSVLink 
+                                data={props.profiles}
+                                headers= {csvHeaders}
+                                filename= 'profiles.csv'
+                                style={{ color: 'white' }}
+                            >Export</CSVLink>
                         </Button>
                         <Button variant="contained" color="success" onClick={handleClose}>
                             <span style={{ color: 'white' }}>Close</span>
