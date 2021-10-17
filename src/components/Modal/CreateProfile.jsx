@@ -188,7 +188,9 @@ export default function CreateProfile(props) {
               </GridItem>
 
               <GridItem xs={5} sm={5}>
-                <Button variant="info" size="md" onClick={generatePassword}>Generate Password</Button>
+                <Button variant="contained" color="warning" onClick={generatePassword} className="mt-2">
+                  <span style={{ color: 'white' }}>Generate Password</span>
+                </Button>
               </GridItem>
             </GridContainer>
           </TabPanel>
@@ -390,12 +392,6 @@ export default function CreateProfile(props) {
           </TabPanel>
         </SwipeableViews>
         <div className="d-flex mb-3" style={{ justifyContent: "space-evenly" }}>
-          {/* <Button variant="primary" size="md" onClick={() => props.saveProfile(profile)}>
-            { props.openMode == 'create' && <span>Create</span> }
-            { props.openMode == 'edit' && <span>Save</span> }
-            {/* Save */}
-          {/* </Button> */} 
-          {/* <Button variant="success" size="md" onClick={handleClose}>Close</Button> */}
           <Button variant="contained" color="primary" onClick={() => props.saveProfile(profile)}>
             { props.openMode == 'create' && <span>Create</span> }
             { props.openMode == 'edit' && <span>Save</span> }
