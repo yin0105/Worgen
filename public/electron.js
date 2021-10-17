@@ -40,7 +40,7 @@ ipcMain.on('saveFile', (event, path) => {
   const options = {
     defaultPath: app.getPath('documents') + '/electron-tutorial-app.csv',
     filters: [
-      { name: 'CSV file', extension: ['csv'] },
+      { name: 'CSV file', extensions: ['csv'] },
       { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
       { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
       { name: 'Custom File Type', extensions: ['as'] },

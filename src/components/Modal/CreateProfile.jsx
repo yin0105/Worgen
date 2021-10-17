@@ -203,7 +203,6 @@ export default function CreateProfile(props) {
                 <FormControl fullWidth className="mb-3">
                   <InputLabel>Card Type</InputLabel>
                   <Select
-                    // labelId="demo-simple-select-standard-label"
                     id="card_type"
                     value={ profile.cardType }
                     onChange={(e) => dispatch(allActions.profileActions.setInfo("cardType", e.target.value ))}
@@ -295,7 +294,6 @@ export default function CreateProfile(props) {
               </GridItem>
 
               <GridItem xs={12} sm={12}>
-                {/* <TextField id="" label="" variant="outlined" value={ profile. } className="w-100 mb-3" onChange={(e) => dispatch(allActions.profileActions.setInfo("ccBillCountry", e.target.value))} /> */}
                 <FormControl fullWidth className="mb-3">
                   <InputLabel>Billing Country</InputLabel>
                   <Select
