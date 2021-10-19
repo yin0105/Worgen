@@ -4,8 +4,8 @@ const { app, BrowserWindow, session } = require('electron');
 const isDev = require('electron-is-dev');
 // const url = require('url') 
 const path = require('path')
-const os = require('os') 
-const {ipcMain} = require('electron') 
+// const os = require('os') 
+// const {ipcMain} = require('electron') 
 
 
 function createWindow() {
@@ -43,46 +43,46 @@ function createWindow() {
   }
 }
 
-ipcMain.on('saveFile', (event, path) => { 
-  const {dialog} = require('electron') 
-  const fs = require('fs') 
-  console.log("=== path = ", path)
+// ipcMain.on('saveFile', (event, path) => { 
+//   const {dialog} = require('electron') 
+//   const fs = require('fs') 
+//   console.log("=== path = ", path)
 
-  const options = {
-    defaultPath: app.getPath('documents') + '/electron-tutorial-app.csv',
-    filters: [
-      { name: 'CSV file', extensions: ['csv'] },
-      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-      { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
-      { name: 'Custom File Type', extensions: ['as'] },
-      { name: 'All Files', extensions: ['*'] }
-    ],
-    buttonLabel: 'Export',
-  }
+//   const options = {
+//     defaultPath: app.getPath('documents') + '/electron-tutorial-app.csv',
+//     filters: [
+//       { name: 'CSV file', extensions: ['csv'] },
+//       { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+//       { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+//       { name: 'Custom File Type', extensions: ['as'] },
+//       { name: 'All Files', extensions: ['*'] }
+//     ],
+//     buttonLabel: 'Export',
+//   }
   
-  dialog.showSaveDialog(null, options).then(
-    res => {
-      console.log(res);
-      event.reply('saveFile-reply', res)
-    }
-  )
+//   dialog.showSaveDialog(null, options).then(
+//     res => {
+//       console.log(res);
+//       event.reply('saveFile-reply', res)
+//     }
+//   )
   
-}) 
+// }) 
 
-ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.reply('asynchronous-reply', 'pong')
-})
+// ipcMain.on('asynchronous-message', (event, arg) => {
+//   console.log(arg) // prints "ping"
+//   event.reply('asynchronous-reply', 'pong')
+// })
 
-ipcMain.on('synchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.returnValue = 'pong'
-})
+// ipcMain.on('synchronous-message', (event, arg) => {
+//   console.log(arg) // prints "ping"
+//   event.returnValue = 'pong'
+// })
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-const reactDevToolsPath = "C:\\Users\\Mickey\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 2\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd"
+// const reactDevToolsPath = "C:\\Users\\Mickey\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 2\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd"
 
 app.whenReady().then(
   // createWindow

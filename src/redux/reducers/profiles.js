@@ -1,4 +1,4 @@
-const profiles = (state = {}, action) => {
+const profiles = (state = [], action) => {
     switch(action.type){
         case "SET_PROFILES":
             console.log("profiles payload = ", action.payload)

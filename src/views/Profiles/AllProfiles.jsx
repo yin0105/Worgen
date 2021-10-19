@@ -70,11 +70,12 @@ const filePath = "data/profiles.csv";
 export default function AllProfiles() {
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
   const [openImpExpProfile, setOpenImpExpProfile] = useState(false);
-  const [profiles, setProfiles] = useState(null);
+  // const [profiles, setProfiles] = useState([]);
   const [openMode, setOpenMode] = useState('create');
   const [selectedKey, setSelectedKey] = useState(-1);
 
   const dispatch = useDispatch();
+  const profiles = useSelector((state) => state.profiles)
 
   // useEffect(() => {
   //   let readData = [];
@@ -123,7 +124,8 @@ export default function AllProfiles() {
     });
     console.log("data = ", data)
 
-    setProfiles(addActions(data));
+    // setProfiles(addActions(data));
+    dispatch(allActions.profilesActions.setInfo("set", data));
     console.log("profiles = ", profiles);
   }
 
@@ -169,14 +171,16 @@ export default function AllProfiles() {
       tmpProfiles[selectedKey] = data;
     }     
     saveToLocal(tmpProfiles);
-    setProfiles(addActions(tmpProfiles));
+    // setProfiles(addActions(tmpProfiles));
+    dispatch(allActions.profilesActions.setInfo("set", tmpProfiles));
   }
 
   const removeProfile = (index) => {
     let tmpProfiles = profiles
     tmpProfiles.splice(index, 1);
     saveToLocal(tmpProfiles);
-    setProfiles(addActions(tmpProfiles));
+    // setProfiles(addActions(tmpProfiles));
+    dispatch(allActions.profilesActions.setInfo("set", tmpProfiles));
   }
 
   const importProfile = (rawData, isImportAppend, save=true) => {
@@ -232,10 +236,13 @@ export default function AllProfiles() {
         mergedProfiles.push(el);
       });
       if (save) saveToLocal(mergedProfiles);
-      setProfiles(addActions(mergedProfiles));
+      // setProfiles(addActions(mergedProfiles));
+      dispatch(allActions.profilesActions.setInfo("set", mergedProfiles));
+      
     } else {
       if (save) saveToLocal(data);
-      setProfiles(addActions(data));
+      // setProfiles(addActions(data));
+      dispatch(allActions.profilesActions.setInfo("set", data));
     }
   }
 
@@ -307,24 +314,12 @@ export default function AllProfiles() {
                       field: 'edit_action',
                       sort: 'asc',
                       width: 66,
-                      // render: (data) => {
-                      //   return <Button color="success" onClick={() => {
-                      //     console.log("123", profiles);
-                      //   }}>
-                      //     <Edit />
-                      //   </Button>
-                      // }
                     },
                     {
                       label: '',
                       field: 'remove_action',
                       sort: 'asc',
                       width: 66,
-                      // render: (data) => {
-                      //   return <Button color="danger" onClick={() => removeProfile(data)}>
-                      //     <Close />
-                      //   </Button>
-                      // }
                     }
                   ],
                   rows: profiles
