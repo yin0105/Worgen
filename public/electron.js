@@ -1,7 +1,10 @@
-const { app, BrowserWindow } = require('electron');
+// import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
+const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+const { app, BrowserWindow, session } = require('electron');
 const isDev = require('electron-is-dev');
 // const url = require('url') 
-const path = require('path') 
+const path = require('path')
+const os = require('os') 
 const {ipcMain} = require('electron') 
 
 
@@ -29,6 +32,14 @@ function createWindow() {
   // Open the DevTools.
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
+    // win.webContents.once("dom-ready", async () => {
+    //   await installExtension([REDUX_DEVTOOLS])
+    //       .then((name) => console.log(`Added Extension:  ${name}`))
+    //       .catch((err) => console.log("An error occurred: ", err))
+    //       .finally(() => {
+    //         win.webContents.openDevTools({ mode: 'detach' });
+    //       });
+    // });
   }
 }
 
@@ -71,7 +82,20 @@ ipcMain.on('synchronous-message', (event, arg) => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow);
+const reactDevToolsPath = "C:\\Users\\Mickey\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 2\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd"
+
+app.whenReady().then(
+  // createWindow
+  // async () => {
+  //   // await session.defaultSession.loadExtension(reactDevToolsPath)
+  //   try {
+  //     await installExtension(REDUX_DEVTOOLS)
+  //   } catch (e) {
+  //       console.error("Vue Devtools failed to install:", e.toString())
+  //     }
+  // },
+  createWindow
+);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -87,3 +111,9 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+// app.on('ready', () => {
+//   installExtension(REDUX_DEVTOOLS)
+//       .then((name) => console.log(`Added Extension: ${name}`))
+//       .catch((err) => console.log('An error occurred: ', err));
+// });

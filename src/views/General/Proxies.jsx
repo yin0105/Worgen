@@ -61,13 +61,13 @@ const Styles = styled.div `
     button {
       padding: 4px !important;
       margin: 8px;
-    }
+    } 
   }
 `
 
 const filePath = "data/profiles.csv";
   
-export default function AllProfiles() {
+export default function Proxies() {
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
   const [openImpExpProfile, setOpenImpExpProfile] = useState(false);
   const [profiles, setProfiles] = useState(null);

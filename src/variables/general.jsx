@@ -314,10 +314,20 @@ const csvHeaders = [
   { label: "Shipping Phone", key: "shippingPhone" },
   { label: "Only One Checkout", key: "oneCheckout" },
   { label: "Card Type", key: "cardType" },
-]
+];
+
+const sites = [
+  'Amazon.com',
+  'Target.com',
+  'Walmart.com',
+  'Gmail.com',
+  'Outlook.com',
+  'Playstation.com',
+];
 
 module.exports = {
   countries,
   cardTypes,
-  csvHeaders
+  csvHeaders,
+  sites,
 };

@@ -1,4 +1,6 @@
-import AllProfiles from "../views/Profiles/AllProfiles.jsx";
+import AllProfiles from "../views/Profiles/AllProfiles";
+import CreateAccounts from "../views/Accounts/CreateAccounts";
+import Proxies from "../views/General/Proxies";
 
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -156,8 +158,9 @@ var dashRoutes = [
 
   //   // path: "/profile", name: "Profile", icon: WidgetsIcon, component: AllProfiles 
   // },
-  { path: "/profile", name: "Profile", icon: GridOn, component: AllProfiles  },
-  { path: "/account", name: "Account", icon: WidgetsIcon, component: AllProfiles  },
+  { path: "/profile", name: "Profiles", icon: GridOn, component: AllProfiles  },
+  { path: "/account", name: "Accounts", icon: WidgetsIcon, component: CreateAccounts  },
+  { path: "/proxy", name: "Proxies", icon: Place, component: Proxies  },
   // {
   //   collapse: true,
   //   path: "/maps",
